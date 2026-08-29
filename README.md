@@ -19,7 +19,12 @@ A modern, interactive cel-shaded showcase web application featuring lightweight 
 - **Description:** Free in-browser PDF utility suite (Merge PDF, Compress PDF, Image to PDF, Split PDF) with 100% local processing for privacy protection.
 - **Website:** [expdf.space](https://expdf.space/)
 
-### 3. 👤 Amir Ali Profile
+### 3. 🖼️ Zero Wallpapers
+- **Type:** Curated Wallpaper Vault
+- **Description:** Curated HD and 4K wallpaper gallery featuring 380+ wallpapers across 13 unique aesthetic themes with category filtering, instant search, and 1-click full-resolution downloads.
+- **Website:** [zeroiqs.github.io/ZeroIQ-Wallpapers](https://zeroiqs.github.io/ZeroIQ-Wallpapers/)
+
+### 4. 👤 Amir Ali Profile
 - **Type:** Developer Portfolio
 - **Description:** Software and web application developer crafting fast, clean, privacy-focused open-source tools.
 

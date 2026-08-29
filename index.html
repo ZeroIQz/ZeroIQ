@@ -1622,6 +1622,7 @@
             <div class="loader-log-line">&gt; LOADING_3D_ENGINE ......... OK</div>
             <div class="loader-log-line">&gt; ZEROHUB_MODULE ........ READY</div>
             <div class="loader-log-line">&gt; EXPDF_ENGINE .............. READY</div>
+            <div class="loader-log-line">&gt; WALLPAPER_VAULT .......... READY</div>
         </div>
     </div>
     <script>
@@ -1693,6 +1694,9 @@
             </button>
             <button class="tab-btn" data-section="2">
                 <i class="fa-solid fa-file-pdf"></i> <span>EXPDF</span>
+            </button>
+            <button class="tab-btn" data-section="3">
+                <i class="fa-solid fa-images"></i> <span>Zero Wallpapers</span>
             </button>
         </nav>
     </header>
@@ -1825,13 +1829,41 @@
             </div>
         </section>
 
+        <!-- Slide 4: Zero Wallpapers -->
+        <section class="hero-slide" id="slide-3">
+            <div class="section-content">
+                <div class="content-grid">
+                    <div class="content-info">
+                        <div class="content-badge anim-item">
+                            <i class="fa-solid fa-images"></i> <span>Curated Wallpaper Vault</span>
+                        </div>
+                        <h2 class="content-title anim-item">Zero Wallpapers</h2>
+                        <p class="content-subtitle anim-item">Curated HD Wallpaper Gallery & Vault</p>
+                        <p class="content-desc anim-item">
+                            Explore 380+ curated HD and 4K wallpapers across 13 unique themes with instant search, category filtering, theme presets, and 1-click full-resolution downloads.
+                        </p>
+                        <div class="content-bullets anim-item">
+                            <span class="bullet-chip"><i class="fa-solid fa-circle-check"></i> <span>380+ Curated HD Wallpapers</span></span>
+                            <span class="bullet-chip"><i class="fa-solid fa-circle-check"></i> <span>13 Aesthetic Themes</span></span>
+                            <span class="bullet-chip"><i class="fa-solid fa-circle-check"></i> <span>100% Free & Fast Vault</span></span>
+                        </div>
+                        <div class="content-actions anim-item">
+                            <a href="https://zeroiqs.github.io/ZeroIQ-Wallpapers/" target="_blank" rel="noopener" class="btn-primary">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> <span>Open Zero Wallpapers</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Section Counter -->
     <div class="section-counter" id="sectionCounter">
         <span class="counter-current" id="counterCurrent">01</span>
         <div class="counter-divider"></div>
-        <span class="counter-total">03</span>
+        <span class="counter-total">04</span>
     </div>
 
     <!-- Footer -->
@@ -1839,6 +1871,7 @@
         <div>© 2026 All rights reserved.</div>
         <div class="footer-links">
             <a href="https://github.com/ZeroIQs" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://zeroiqs.github.io/ZeroIQ-Wallpapers/" target="_blank" rel="noopener">Wallpapers</a>
             <a href="https://expdf.space/" target="_blank" rel="noopener">EXPDF</a>
             <a href="https://instagram.com/lnetl" target="_blank" rel="noopener">Instagram</a>
         </div>
@@ -2238,6 +2271,31 @@
                 [[100,125,210,125],[100,155,210,155],[100,185,210,185],[100,215,165,215]].forEach(function(l){
                     ctx.beginPath(); ctx.moveTo(l[0],l[1]); ctx.lineTo(l[2],l[3]); ctx.stroke();
                 });
+            } else if (iconType === 'wallpaper') {
+                // Zero Wallpapers — Picture frame with mountains and sun
+                ctx.lineWidth = 14;
+                ctx.strokeStyle = '#ffffff';
+                if (typeof ctx.roundRect === 'function') {
+                    ctx.roundRect(40, 50, 240, 220, 24);
+                } else {
+                    ctx.rect(40, 50, 240, 220);
+                }
+                ctx.stroke();
+
+                // Sun
+                ctx.beginPath();
+                ctx.arc(100, 110, 24, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Mountains (2 peaks)
+                ctx.beginPath();
+                ctx.moveTo(55, 235);
+                ctx.lineTo(130, 140);
+                ctx.lineTo(190, 210);
+                ctx.lineTo(220, 175);
+                ctx.lineTo(265, 235);
+                ctx.closePath();
+                ctx.fill();
             }
 
             var imgData = ctx.getImageData(0, 0, 320, 320);
@@ -2397,12 +2455,14 @@
             var instagramHomePos = sampleIconBitmapParticles('instagram', PARTICLE_COUNT);
             var shieldHomePos    = sampleIconBitmapParticles('shield', PARTICLE_COUNT);
             var pdfHomePos       = sampleIconBitmapParticles('pdf', PARTICLE_COUNT);
+            var wallpaperHomePos = sampleIconBitmapParticles('wallpaper', PARTICLE_COUNT);
 
             var githubColors    = generateGradientColors(githubHomePos, PARTICLE_COUNT, '#fdba74', '#7dd3fc', '#ffffff');
             var telegramColors  = generateGradientColors(telegramHomePos, PARTICLE_COUNT, '#38bdf8', '#a5b4fc', '#e0e7ff');
             var instagramColors = generateGradientColors(instagramHomePos, PARTICLE_COUNT, '#f472b6', '#fdba74', '#fde047');
             var shieldColors    = generateGradientColors(shieldHomePos, PARTICLE_COUNT, '#6ee7b7', '#38bdf8', '#a5f3fc');
             var pdfColors       = generateGradientColors(pdfHomePos, PARTICLE_COUNT, '#a855f7', '#ec4899', '#ffffff');
+            var wallpaperColors = generateGradientColors(wallpaperHomePos, PARTICLE_COUNT, '#06b6d4', '#ec4899', '#facc15');
 
             var targetHomePos  = new Float32Array(githubHomePos);
             var desiredHomePos = new Float32Array(githubHomePos);
@@ -2610,6 +2670,8 @@
             window.shieldColorsRef = shieldColors;
             window.pdfHomePosRef = pdfHomePos;
             window.pdfColorsRef = pdfColors;
+            window.wallpaperHomePosRef = wallpaperHomePos;
+            window.wallpaperColorsRef = wallpaperColors;
 
             var githubBtn   = document.querySelector('.content-actions a[href*="github"]');
             var telegramBtn = document.querySelector('.content-actions a[href*="t.me"]');
@@ -3033,6 +3095,9 @@
                 } else if (currentSlide === 2 && window.pdfHomePosRef) {
                     playParticleMorphSound('github');
                     window.morphToShapeRef(window.pdfHomePosRef, window.pdfColorsRef, '3D PARTICLE MESH // EXPDF TOOL');
+                } else if (currentSlide === 3 && window.wallpaperHomePosRef) {
+                    playParticleMorphSound('github');
+                    window.morphToShapeRef(window.wallpaperHomePosRef, window.wallpaperColorsRef, '3D PARTICLE MESH // ZERO WALLPAPERS');
                 }
             }
 
@@ -3091,6 +3156,9 @@
                 } else if (idx === 2 && window.morphToShapeRef && window.pdfHomePosRef) {
                     playParticleMorphSound('github');
                     window.morphToShapeRef(window.pdfHomePosRef, window.pdfColorsRef, '3D PARTICLE MESH // EXPDF TOOL');
+                } else if (idx === 3 && window.morphToShapeRef && window.wallpaperHomePosRef) {
+                    playParticleMorphSound('github');
+                    window.morphToShapeRef(window.wallpaperHomePosRef, window.wallpaperColorsRef, '3D PARTICLE MESH // ZERO WALLPAPERS');
                 }
                 goToSlide(idx);
             });
@@ -3103,6 +3171,8 @@
                     window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROHUB SHIELD');
                 } else if (idx === 2 && window.morphToShapeRef && window.pdfHomePosRef) {
                     window.morphToShapeRef(window.pdfHomePosRef, window.pdfColorsRef, '3D PARTICLE MESH // EXPDF TOOL');
+                } else if (idx === 3 && window.morphToShapeRef && window.wallpaperHomePosRef) {
+                    window.morphToShapeRef(window.wallpaperHomePosRef, window.wallpaperColorsRef, '3D PARTICLE MESH // ZERO WALLPAPERS');
                 }
             });
         });
@@ -3197,7 +3267,7 @@
                 dir: 'ltr',
                 flag: '🇺🇸',
                 label: 'EN',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF'],
+                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'Zero Wallpapers'],
                 themeLight: 'Light',
                 themeDark: 'Dark',
                 soundOn: 'Sound: On',
@@ -3225,13 +3295,20 @@
                     chips: ['100% Local Processing', 'No Account Required', '100% Free Tools'],
                     btnOpen: 'Open EXPDF (expdf.space)'
                 },
+                slide3: {
+                    badge: 'Curated Wallpaper Vault',
+                    subtitle: 'Curated HD Wallpaper Gallery & Vault',
+                    desc: 'Explore 380+ curated HD and 4K wallpapers across 13 unique themes with instant search, category filtering, theme presets, and 1-click full-resolution downloads.',
+                    chips: ['380+ Curated HD Wallpapers', '13 Aesthetic Themes', '100% Free & Fast Vault'],
+                    btnOpen: 'Open Zero Wallpapers'
+                },
                 footer: '© 2026 All rights reserved.'
             },
             ja: {
                 dir: 'ltr',
                 flag: '🇯🇵',
                 label: 'JA',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF'],
+                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'Zero Wallpapers'],
                 themeLight: 'ライト',
                 themeDark: 'ダーク',
                 soundOn: 'サウンド: オン',
@@ -3259,13 +3336,20 @@
                     chips: ['100% ローカル処理', 'アカウント不要', '100% 無料ツール'],
                     btnOpen: 'EXPDFを開く (expdf.space)'
                 },
+                slide3: {
+                    badge: '厳選壁紙ヴォールト',
+                    subtitle: '厳選されたHD壁紙ギャラリー & ヴォールト',
+                    desc: '13のユニークなテーマにわたる380枚以上の厳選されたHD・4K壁紙を探索。即時検索、カテゴリー絞り込み、テーマプリセット、ワンクリック高解像度ダウンロードに対応。',
+                    chips: ['380枚以上の厳選HD壁紙', '13のテーマ', '100% 無料 & 高速ヴォールト'],
+                    btnOpen: 'Zero Wallpapersを開く'
+                },
                 footer: '© 2026 全著作権所有。'
             },
             ar: {
                 dir: 'rtl',
                 flag: '🇮🇶',
                 label: 'AR',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF'],
+                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'خلفيات Zero'],
                 themeLight: 'فاتح',
                 themeDark: 'داكن',
                 soundOn: 'الصوت: مفعّل',
@@ -3292,6 +3376,13 @@
                     desc: 'ادمج وضغّط وقسّم ملفات PDF فورياً دون رفعها إلى خوادم بعيدة — معالجة محلية 100% لأقصى درجات الخصوصية.',
                     chips: ['معالجة محلية 100%', 'لا حاجة لحساب', 'أدوات مجانية 100%'],
                     btnOpen: 'افتح EXPDF (expdf.space)'
+                },
+                slide3: {
+                    badge: 'خزينة خلفيات منتقاة',
+                    subtitle: 'معرض وخزينة خلفيات بدقة فائقة HD',
+                    desc: 'استكشف أكثر من 380 خلفية منتقاة بدقة HD و 4K عبر 13 سمة مميزة، مع بحث فوري، تصفية حسب الفئات، سمات جاهزة، وتنزيل بضغطة واحدة بالدقة الكاملة.',
+                    chips: ['أكثر من 380 خلفية HD', '13 سمة مميزة', 'مجاني 100% وسريع'],
+                    btnOpen: 'افتح Zero Wallpapers'
                 },
                 footer: '© 2026 جميع الحقوق محفوظة.'
             }
@@ -3398,6 +3489,26 @@
 
                 var title2 = s2.querySelector('.content-title');
                 if (title2) title2.setAttribute('data-orig-text', title2.textContent.trim());
+            }
+
+            // Slide 3 (Zero Wallpapers)
+            var s3 = document.getElementById('slide-3');
+            if (s3 && t.slide3) {
+                var badgeEl3 = s3.querySelector('.content-badge span');
+                if (badgeEl3) badgeEl3.textContent = t.slide3.badge;
+                var subtitle3 = s3.querySelector('.content-subtitle');
+                if (subtitle3) subtitle3.textContent = t.slide3.subtitle;
+                var desc3 = s3.querySelector('.content-desc');
+                if (desc3) desc3.textContent = t.slide3.desc;
+                var chips3 = s3.querySelectorAll('.bullet-chip span');
+                chips3.forEach(function(chip, i) {
+                    if (t.slide3.chips[i]) chip.textContent = t.slide3.chips[i];
+                });
+                var openBtn3 = s3.querySelector('.btn-primary span');
+                if (openBtn3) openBtn3.textContent = t.slide3.btnOpen;
+
+                var title3 = s3.querySelector('.content-title');
+                if (title3) title3.setAttribute('data-orig-text', title3.textContent.trim());
             }
 
             // Footer
