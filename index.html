@@ -9,10 +9,10 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amir Ali · ZeroCleaner & EXPDF</title>
+    <title>Amir Ali · Zerohub & EXPDF</title>
 
     <!-- Meta Tags -->
-    <meta name="description" content="Amir Ali (@sytus) - Creator of ZeroCleaner and EXPDF. Developer portfolio and showcase.">
+    <meta name="description" content="Amir Ali (@sytus) - Creator of Zerohub and EXPDF. Developer portfolio and showcase.">
     <meta name="theme-color" content="#050a18">
 
     <!-- Favicon / Tab Icon -->
@@ -1620,7 +1620,7 @@
         <div class="loader-log">
             <div class="loader-log-line">&gt; SYS_CORE.INIT ............. OK</div>
             <div class="loader-log-line">&gt; LOADING_3D_ENGINE ......... OK</div>
-            <div class="loader-log-line">&gt; ZEROCLEANER_MODULE ........ READY</div>
+            <div class="loader-log-line">&gt; ZEROHUB_MODULE ........ READY</div>
             <div class="loader-log-line">&gt; EXPDF_ENGINE .............. READY</div>
         </div>
     </div>
@@ -1689,7 +1689,7 @@
                 <i class="fa-solid fa-user-gear"></i> <span>Amir Ali</span>
             </button>
             <button class="tab-btn" data-section="1">
-                <i class="fa-solid fa-shield-halved"></i> <span>ZeroCleaner</span>
+                <i class="fa-solid fa-shield-halved"></i> <span>Zerohub</span>
             </button>
             <button class="tab-btn" data-section="2">
                 <i class="fa-solid fa-file-pdf"></i> <span>EXPDF</span>
@@ -1769,7 +1769,7 @@
             </div>
         </section>
 
-        <!-- Slide 2: ZeroCleaner -->
+        <!-- Slide 2: Zerohub -->
         <section class="hero-slide" id="slide-1">
             <div class="section-content">
                 <div class="content-grid">
@@ -1777,7 +1777,7 @@
                         <div class="content-badge anim-item">
                             <i class="fa-solid fa-shield-halved"></i> <span>Windows System Utility</span>
                         </div>
-                        <h2 class="content-title anim-item">ZeroCleaner</h2>
+                        <h2 class="content-title anim-item">Zerohub</h2>
                         <p class="content-subtitle anim-item">Fast & Safe Cache Cleaner for Drive C:</p>
                         <p class="content-desc anim-item">
                             A lightweight tool to clean 40+ cache targets across browsers, games, and dev tools — without touching your saved logins or active sessions.
@@ -1787,7 +1787,7 @@
                             <span class="bullet-chip"><i class="fa-solid fa-circle-check"></i> <span>100% Free & Open Source</span></span>
                         </div>
                         <div class="content-actions anim-item">
-                            <a href="https://github.com/ZeroIQs/ZeroCleaner" target="_blank" rel="noopener" class="btn-primary">
+                            <a href="https://github.com/ZeroIQs/Zerohub" target="_blank" rel="noopener" class="btn-primary">
                                 <i class="fa-brands fa-github"></i> <span>Download Tool from GitHub</span>
                             </a>
                         </div>
@@ -2170,7 +2170,7 @@
                 ctx.arc(220, 100, 16, 0, Math.PI * 2);
                 ctx.fill();
             } else if (iconType === 'shield') {
-                // ZeroCleaner — Heraldic Shield with sweep lines inside
+                // Zerohub — Heraldic Shield with sweep lines inside
                 ctx.lineWidth = 0;
                 ctx.beginPath();
                 ctx.moveTo(160, 40);
@@ -2633,11 +2633,11 @@
             }
         }
 
-        // ==================== ZEROCLEANER PARTICLE ENGINE ====================
+        // ==================== ZEROHUB PARTICLE ENGINE ====================
         var zcParticleActive = false;
         var zcAnimFrameId = null;
 
-        function initZeroCleanerParticles() {
+        function initZerohubParticles() {
             var canvas = document.getElementById('particle-zc-canvas');
             if (!canvas || typeof THREE === 'undefined') return;
             var container = canvas.parentElement;
@@ -2995,7 +2995,7 @@
 
         init3dParticleMesh();
         setSocialSubStep(0, true);
-        initZeroCleanerParticles();
+        initZerohubParticles();
         if (window.startZCParticles) window.startZCParticles();
         initExpdfParticles();
         if (window.startPDFParticles) window.startPDFParticles();
@@ -3028,7 +3028,7 @@
                     setSocialSubStep(dir < 0 ? 2 : 0);
                 } else if (currentSlide === 1 && window.shieldHomePosRef) {
                     playParticleMorphSound('github');
-                    window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROCLEANER SHIELD');
+                    window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROHUB SHIELD');
                 } else if (currentSlide === 2 && window.pdfHomePosRef) {
                     playParticleMorphSound('github');
                     window.morphToShapeRef(window.pdfHomePosRef, window.pdfColorsRef, '3D PARTICLE MESH // EXPDF TOOL');
@@ -3086,7 +3086,7 @@
                     setSocialSubStep(0);
                 } else if (idx === 1 && window.morphToShapeRef && window.shieldHomePosRef) {
                     playParticleMorphSound('github');
-                    window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROCLEANER SHIELD');
+                    window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROHUB SHIELD');
                 } else if (idx === 2 && window.morphToShapeRef && window.pdfHomePosRef) {
                     playParticleMorphSound('github');
                     window.morphToShapeRef(window.pdfHomePosRef, window.pdfColorsRef, '3D PARTICLE MESH // EXPDF TOOL');
@@ -3099,7 +3099,7 @@
                 if (idx === 0 && window.morphToShapeRef && window.githubHomePosRef) {
                     window.morphToShapeRef(window.githubHomePosRef, window.githubColorsRef, '3D PARTICLE MESH // GITHUB');
                 } else if (idx === 1 && window.morphToShapeRef && window.shieldHomePosRef) {
-                    window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROCLEANER SHIELD');
+                    window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROHUB SHIELD');
                 } else if (idx === 2 && window.morphToShapeRef && window.pdfHomePosRef) {
                     window.morphToShapeRef(window.pdfHomePosRef, window.pdfColorsRef, '3D PARTICLE MESH // EXPDF TOOL');
                 }
@@ -3196,7 +3196,7 @@
                 dir: 'ltr',
                 flag: '🇺🇸',
                 label: 'EN',
-                nav: ['Amir Ali', 'ZeroCleaner', 'EXPDF'],
+                nav: ['Amir Ali', 'Zerohub', 'EXPDF'],
                 themeLight: 'Light',
                 themeDark: 'Dark',
                 soundOn: 'Sound: On',
@@ -3230,7 +3230,7 @@
                 dir: 'ltr',
                 flag: '🇯🇵',
                 label: 'JA',
-                nav: ['Amir Ali', 'ZeroCleaner', 'EXPDF'],
+                nav: ['Amir Ali', 'Zerohub', 'EXPDF'],
                 themeLight: 'ライト',
                 themeDark: 'ダーク',
                 soundOn: 'サウンド: オン',
@@ -3264,7 +3264,7 @@
                 dir: 'rtl',
                 flag: '🇮🇶',
                 label: 'AR',
-                nav: ['Amir Ali', 'ZeroCleaner', 'EXPDF'],
+                nav: ['Amir Ali', 'Zerohub', 'EXPDF'],
                 themeLight: 'فاتح',
                 themeDark: 'داكن',
                 soundOn: 'الصوت: مفعّل',
