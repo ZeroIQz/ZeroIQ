@@ -8,10 +8,11 @@ A modern, interactive cel-shaded showcase web application featuring lightweight 
 
 ## 🌟 Featured Projects
 
-### 1. 🛡️ Zerohub
-- **Type:** Windows System Utility
-- **Description:** Fast, safe, and intelligent cache cleaner for Windows Drive `C:`. Reclaims storage across 40+ cache targets (GPU shaders, web browsers, dev tools, gaming launchers, and social apps) without touching saved logins or active account sessions.
+### 1. 🛡️ ZeroHub
+- **Type:** All-in-One Windows Optimization Hub
+- **Description:** Fast, safe, and native Windows utility hub with 1-click silent app installer, deep cache cleaning (40+ targets), Windows debloat, deep uninstaller, live RAM flush, and update management.
 - **Repository:** [ZeroIQs/Zerohub](https://github.com/ZeroIQs/Zerohub)
+- **Quick Launch (PowerShell):** `irm https://raw.githubusercontent.com/ZeroIQs/Zerohub/main/run.ps1 | iex`
 
 ### 2. 📄 EXPDF
 - **Type:** In-Browser Web Tools
