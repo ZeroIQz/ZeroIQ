@@ -2463,15 +2463,11 @@
             var PARTICLE_COUNT = 50000;
             var geometry = new THREE.BufferGeometry();
             var githubHomePos    = sampleIconBitmapParticles('github', PARTICLE_COUNT);
-            var telegramHomePos  = sampleIconBitmapParticles('telegram', PARTICLE_COUNT);
-            var instagramHomePos = sampleIconBitmapParticles('instagram', PARTICLE_COUNT);
             var shieldHomePos    = sampleIconBitmapParticles('shield', PARTICLE_COUNT);
             var pdfHomePos       = sampleIconBitmapParticles('pdf', PARTICLE_COUNT);
             var wallpaperHomePos = sampleIconBitmapParticles('wallpaper', PARTICLE_COUNT);
 
             var githubColors    = generateGradientColors(githubHomePos, PARTICLE_COUNT, '#fdba74', '#7dd3fc', '#ffffff');
-            var telegramColors  = generateGradientColors(telegramHomePos, PARTICLE_COUNT, '#38bdf8', '#a5b4fc', '#e0e7ff');
-            var instagramColors = generateGradientColors(instagramHomePos, PARTICLE_COUNT, '#f472b6', '#fdba74', '#fde047');
             var shieldColors    = generateGradientColors(shieldHomePos, PARTICLE_COUNT, '#6ee7b7', '#38bdf8', '#a5f3fc');
             var pdfColors       = generateGradientColors(pdfHomePos, PARTICLE_COUNT, '#a855f7', '#ec4899', '#ffffff');
             var wallpaperColors = generateGradientColors(wallpaperHomePos, PARTICLE_COUNT, '#06b6d4', '#ec4899', '#facc15');
@@ -2674,38 +2670,12 @@
             window.morphToShapeRef = morphToShape;
             window.githubHomePosRef = githubHomePos;
             window.githubColorsRef = githubColors;
-            window.telegramHomePosRef = telegramHomePos;
-            window.telegramColorsRef = telegramColors;
-            window.instagramHomePosRef = instagramHomePos;
-            window.instagramColorsRef = instagramColors;
             window.shieldHomePosRef = shieldHomePos;
             window.shieldColorsRef = shieldColors;
             window.pdfHomePosRef = pdfHomePos;
             window.pdfColorsRef = pdfColors;
             window.wallpaperHomePosRef = wallpaperHomePos;
             window.wallpaperColorsRef = wallpaperColors;
-
-            var githubBtn   = document.querySelector('.content-actions a[href*="github"]');
-            var telegramBtn = document.querySelector('.content-actions a[href*="t.me"]');
-            var instaBtn    = document.querySelector('.content-actions a[href*="instagram"]');
-
-            if (githubBtn) {
-                githubBtn.addEventListener('mouseenter', function() {
-                    setSocialSubStep(0);
-                });
-            }
-
-            if (telegramBtn) {
-                telegramBtn.addEventListener('mouseenter', function() {
-                    setSocialSubStep(1);
-                });
-            }
-
-            if (instaBtn) {
-                instaBtn.addEventListener('mouseenter', function() {
-                    setSocialSubStep(2);
-                });
-            }
         }
 
         // ==================== ZEROHUB PARTICLE ENGINE ====================
@@ -3042,34 +3012,7 @@
             };
         }
 
-        var socialSubStep = 0; // 0: GitHub, 1: Telegram, 2: Instagram
-
-        function setSocialSubStep(step, skipMorph) {
-            socialSubStep = Math.max(0, Math.min(2, step));
-            var gBtn = document.querySelector('.content-actions a[href*="github"]');
-            var tBtn = document.querySelector('.content-actions a[href*="t.me"]');
-            var iBtn = document.querySelector('.content-actions a[href*="instagram"]');
-
-            if (gBtn) gBtn.classList.toggle('substep-active', socialSubStep === 0);
-            if (tBtn) tBtn.classList.toggle('substep-active', socialSubStep === 1);
-            if (iBtn) iBtn.classList.toggle('substep-active', socialSubStep === 2);
-
-            if (!skipMorph && window.morphToShapeRef) {
-                if (socialSubStep === 0 && window.githubHomePosRef) {
-                    playParticleMorphSound('github');
-                    window.morphToShapeRef(window.githubHomePosRef, window.githubColorsRef, '3D PARTICLE MESH // GITHUB');
-                } else if (socialSubStep === 1 && window.telegramHomePosRef) {
-                    playParticleMorphSound('telegram');
-                    window.morphToShapeRef(window.telegramHomePosRef, window.telegramColorsRef, '3D PARTICLE MESH // TELEGRAM');
-                } else if (socialSubStep === 2 && window.instagramHomePosRef) {
-                    playParticleMorphSound('instagram');
-                    window.morphToShapeRef(window.instagramHomePosRef, window.instagramColorsRef, '3D PARTICLE MESH // INSTAGRAM');
-                }
-            }
-        }
-
         init3dParticleMesh();
-        setSocialSubStep(0, true);
         initZerohubParticles();
         if (window.startZCParticles) window.startZCParticles();
         initExpdfParticles();
@@ -3099,8 +3042,9 @@
 
             // Fluidly morph 3D particle mesh on single shared canvas across all slides!
             if (window.morphToShapeRef) {
-                if (currentSlide === 0) {
-                    setSocialSubStep(dir < 0 ? 2 : 0);
+                if (currentSlide === 0 && window.githubHomePosRef) {
+                    playParticleMorphSound('github');
+                    window.morphToShapeRef(window.githubHomePosRef, window.githubColorsRef, '3D PARTICLE MESH // GITHUB');
                 } else if (currentSlide === 1 && window.shieldHomePosRef) {
                     playParticleMorphSound('github');
                     window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROHUB SHIELD');
@@ -3160,8 +3104,9 @@
         tabBtns.forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var idx = parseInt(btn.getAttribute('data-section'), 10);
-                if (idx === 0) {
-                    setSocialSubStep(0);
+                if (idx === 0 && window.morphToShapeRef && window.githubHomePosRef) {
+                    playParticleMorphSound('github');
+                    window.morphToShapeRef(window.githubHomePosRef, window.githubColorsRef, '3D PARTICLE MESH // GITHUB');
                 } else if (idx === 1 && window.morphToShapeRef && window.shieldHomePosRef) {
                     playParticleMorphSound('github');
                     window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROHUB SHIELD');
@@ -3189,7 +3134,7 @@
             });
         });
 
-        // Mouse wheel slide switching (Sub-stepping through GitHub -> Telegram -> Instagram on Slide 0!)
+        // Mouse wheel slide switching
         var wheelTimeout = null;
         function setWheelLockout() {
             wheelTimeout = setTimeout(function() {
@@ -3200,20 +3145,10 @@
         window.addEventListener('wheel', function(e) {
             if (isAnimating || wheelTimeout) return;
             if (e.deltaY > 20) {
-                if (currentSlide === 0 && socialSubStep < 2) {
-                    setSocialSubStep(socialSubStep + 1);
-                    setWheelLockout();
-                    return;
-                }
                 var next = (currentSlide + 1) % totalSlides;
                 goToSlide(next, 1);
                 setWheelLockout();
             } else if (e.deltaY < -20) {
-                if (currentSlide === 0 && socialSubStep > 0) {
-                    setSocialSubStep(socialSubStep - 1);
-                    setWheelLockout();
-                    return;
-                }
                 var prev = (currentSlide - 1 + totalSlides) % totalSlides;
                 goToSlide(prev, -1);
                 setWheelLockout();
@@ -3234,17 +3169,9 @@
             var diff = touchStartY - touchEndY;
             if (Math.abs(diff) > 35) {
                 if (diff > 0) {
-                    if (currentSlide === 0 && socialSubStep < 2) {
-                        setSocialSubStep(socialSubStep + 1);
-                        return;
-                    }
                     var next = (currentSlide + 1) % totalSlides;
                     goToSlide(next, 1);
                 } else {
-                    if (currentSlide === 0 && socialSubStep > 0) {
-                        setSocialSubStep(socialSubStep - 1);
-                        return;
-                    }
                     var prev = (currentSlide - 1 + totalSlides) % totalSlides;
                     goToSlide(prev, -1);
                 }
@@ -3256,18 +3183,10 @@
             if (isAnimating) return;
             if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown' || (e.key === ' ' && e.target === document.body)) {
                 e.preventDefault();
-                if (currentSlide === 0 && socialSubStep < 2) {
-                    setSocialSubStep(socialSubStep + 1);
-                    return;
-                }
                 var next = (currentSlide + 1) % totalSlides;
                 goToSlide(next, 1);
             } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
                 e.preventDefault();
-                if (currentSlide === 0 && socialSubStep > 0) {
-                    setSocialSubStep(socialSubStep - 1);
-                    return;
-                }
                 var prev = (currentSlide - 1 + totalSlides) % totalSlides;
                 goToSlide(prev, -1);
             }
