@@ -3570,12 +3570,6 @@
             // Update state
             currentSlide = index;
 
-            // Sync URL hash seamlessly
-            var slideHashes = ['#amir', '#zerohub', '#expdf', '#wallpapers', '#donate'];
-            if (window.history && window.history.replaceState && slideHashes[currentSlide]) {
-                window.history.replaceState(null, '', slideHashes[currentSlide]);
-            }
-
             // Fluidly morph 3D particle mesh on single shared canvas across all slides!
             if (window.morphToShapeRef) {
                 if (currentSlide === 0 && window.githubHomePosRef) {
