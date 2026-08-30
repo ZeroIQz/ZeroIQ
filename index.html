@@ -737,6 +737,9 @@
             flex-direction: column;
             gap: 1.25rem;
             width: 100%;
+            position: relative;
+            z-index: 30;
+            pointer-events: auto;
         }
 
         .content-badge {
@@ -866,6 +869,218 @@
             border-color: rgba(255, 255, 255, 0.25);
         }
 
+        /* ===== DONATE / CRYPTO CARDS ===== */
+        .crypto-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            width: 100%;
+            max-width: 580px;
+            margin-top: 0.6rem;
+        }
+
+        .crypto-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.85rem;
+            padding: 0.75rem 1rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 35;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .crypto-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .crypto-card.card-copied {
+            border-color: #16a34a !important;
+            box-shadow: 0 0 20px rgba(22, 163, 74, 0.3) !important;
+        }
+
+        [data-theme="light"] .crypto-card {
+            background: rgba(15, 23, 42, 0.04);
+            border-color: rgba(15, 23, 42, 0.12);
+        }
+
+        [data-theme="light"] .crypto-card:hover {
+            background: rgba(15, 23, 42, 0.08);
+            border-color: rgba(15, 23, 42, 0.22);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .crypto-card.card-copied {
+            border-color: #16a34a !important;
+            box-shadow: 0 0 20px rgba(22, 163, 74, 0.2) !important;
+        }
+
+        .crypto-info {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .crypto-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .crypto-card:hover .crypto-icon {
+            transform: scale(1.08);
+        }
+
+        .crypto-icon.btc {
+            background: rgba(247, 147, 26, 0.15);
+            color: #f7931a;
+            border: 1px solid rgba(247, 147, 26, 0.35);
+            box-shadow: 0 0 15px rgba(247, 147, 26, 0.15);
+        }
+
+        .crypto-icon.eth {
+            background: rgba(98, 126, 234, 0.15);
+            color: #8a9ff5;
+            border: 1px solid rgba(98, 126, 234, 0.35);
+            box-shadow: 0 0 15px rgba(98, 126, 234, 0.15);
+        }
+
+        [data-theme="light"] .crypto-icon.eth {
+            color: #586cc9;
+            border-color: rgba(88, 108, 201, 0.4);
+        }
+
+        .crypto-icon.sol {
+            background: linear-gradient(135deg, rgba(20, 241, 149, 0.15), rgba(153, 69, 255, 0.15));
+            color: #14f195;
+            border: 1px solid rgba(20, 241, 149, 0.35);
+            box-shadow: 0 0 15px rgba(20, 241, 149, 0.15);
+        }
+
+        .solana-svg {
+            width: 18px;
+            height: 15px;
+            display: block;
+        }
+
+        [data-theme="light"] .crypto-icon.sol {
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.12), rgba(147, 51, 234, 0.12));
+            color: #059669;
+            border-color: rgba(5, 150, 105, 0.4);
+        }
+
+        .crypto-details {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
+            gap: 0.2rem;
+        }
+
+        .crypto-name-row {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .crypto-name {
+            font-weight: 800;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .crypto-symbol {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 0.1rem 0.45rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        [data-theme="light"] .crypto-symbol {
+            background: rgba(15, 23, 42, 0.08);
+            color: var(--text-muted);
+        }
+
+        .crypto-addr {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            user-select: all !important;
+            -webkit-user-select: all !important;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+        }
+
+        .crypto-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.48rem 0.95rem;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .crypto-copy-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .crypto-copy-btn.copied {
+            background: #16a34a !important;
+            border-color: #16a34a !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 18px rgba(22, 163, 74, 0.5) !important;
+        }
+
+        [data-theme="light"] .crypto-copy-btn {
+            background: rgba(15, 23, 42, 0.06);
+            border-color: rgba(15, 23, 42, 0.15);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .crypto-copy-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+
         /* ===== SCROLL INDICATOR ===== */
         .scroll-indicator {
             position: fixed;
@@ -979,19 +1194,30 @@
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        #main-footer a {
+        #main-footer a,
+        .footer-tab-link {
             color: rgba(255, 255, 255, 0.55);
             text-decoration: none;
             font-weight: 800;
-            transition: color 0.3s ease;
+            font-size: 0.8rem;
+            font-family: var(--font-main);
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
-        #main-footer a:hover {
-            color: var(--accent);
+        #main-footer a:hover,
+        .footer-tab-link:hover,
+        .footer-tab-link.active {
+            color: var(--accent) !important;
         }
 
         .footer-links {
             display: flex;
+            align-items: center;
             gap: 1.5rem;
         }
 
@@ -1152,8 +1378,11 @@
         [data-theme="light"] .t-muted { color: #94a3b8; }
 
         [data-theme="light"] #main-footer { color: rgba(0, 0, 0, 0.35); }
-        [data-theme="light"] #main-footer a { color: rgba(0, 0, 0, 0.5); }
-        [data-theme="light"] #main-footer a:hover { color: var(--accent-dark); }
+        [data-theme="light"] #main-footer a,
+        [data-theme="light"] .footer-tab-link { color: rgba(0, 0, 0, 0.5); }
+        [data-theme="light"] #main-footer a:hover,
+        [data-theme="light"] .footer-tab-link:hover,
+        [data-theme="light"] .footer-tab-link.active { color: var(--accent-dark) !important; }
 
         [data-theme="light"] .scroll-indicator { color: rgba(0, 0, 0, 0.25); }
         [data-theme="light"] .counter-current { color: var(--accent-dark); }
@@ -1563,6 +1792,50 @@
                 justify-content: center !important;
             }
 
+            .crypto-list {
+                max-width: 100% !important;
+                gap: 0.35rem !important;
+                margin-top: 0.2rem !important;
+            }
+
+            .crypto-card {
+                padding: 0.42rem 0.65rem !important;
+                border-radius: 12px !important;
+                gap: 0.5rem !important;
+            }
+
+            .crypto-icon {
+                width: 30px !important;
+                height: 30px !important;
+                border-radius: 8px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .crypto-icon .solana-svg {
+                width: 15px !important;
+                height: 12px !important;
+            }
+
+            .crypto-name {
+                font-size: 0.78rem !important;
+            }
+
+            .crypto-symbol {
+                font-size: 0.62rem !important;
+                padding: 0.05rem 0.3rem !important;
+            }
+
+            .crypto-addr {
+                font-size: 0.66rem !important;
+                max-width: 170px !important;
+            }
+
+            .crypto-copy-btn {
+                padding: 0.32rem 0.6rem !important;
+                font-size: 0.7rem !important;
+                gap: 0.3rem !important;
+            }
+
             /* Navigation Arrows */
             .slider-nav-btn {
                 width: 36px;
@@ -1592,7 +1865,13 @@
             }
 
             .footer-links {
-                gap: 0.75rem;
+                gap: 0.55rem;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
+
+            .footer-tab-link {
+                font-size: 0.68rem !important;
             }
 
             .scroll-indicator {
@@ -1709,6 +1988,9 @@
             </button>
             <button class="tab-btn" data-section="3">
                 <i class="fa-solid fa-images"></i> <span>Wallpapers</span>
+            </button>
+            <button class="tab-btn" data-section="4">
+                <i class="fa-solid fa-heart"></i> <span>Donate</span>
             </button>
         </nav>
     </header>
@@ -1869,23 +2151,98 @@
             </div>
         </section>
 
+        <!-- Slide 5: Donate -->
+        <section class="hero-slide" id="slide-4">
+            <div class="section-content">
+                <div class="content-grid">
+                    <div class="content-info">
+                        <div class="content-badge anim-item">
+                            <i class="fa-solid fa-heart"></i> <span>Support Development</span>
+                        </div>
+                        <h2 class="content-title anim-item">Donate</h2>
+                        <p class="content-subtitle anim-item">Support Open Source & Free Software</p>
+                        <p class="content-desc anim-item">
+                            Free and open-source tools built for the community. If you enjoy using them and want to support continued development and server hosting, feel free to send a tip below.
+                        </p>
+                        <div class="crypto-list anim-item">
+                            <!-- Bitcoin -->
+                            <div class="crypto-card" data-crypto="btc" data-address="bc1q9f4hsmyvk8cyvg3axzntvxqdtgfzkc98jjds77" onclick="window.copyCryptoAddress && window.copyCryptoAddress(this.querySelector('.crypto-copy-btn'), 'bc1q9f4hsmyvk8cyvg3axzntvxqdtgfzkc98jjds77', event)">
+                                <div class="crypto-info">
+                                    <div class="crypto-icon btc"><i class="fa-brands fa-bitcoin"></i></div>
+                                    <div class="crypto-details">
+                                        <div class="crypto-name-row">
+                                            <span class="crypto-name">Bitcoin</span>
+                                            <span class="crypto-symbol">BTC</span>
+                                        </div>
+                                        <span class="crypto-addr">bc1q9f4hsmyvk8cyvg3axzntvxqdtgfzkc98jjds77</span>
+                                    </div>
+                                </div>
+                                <button class="crypto-copy-btn" onclick="window.copyCryptoAddress && window.copyCryptoAddress(this, 'bc1q9f4hsmyvk8cyvg3axzntvxqdtgfzkc98jjds77', event)" title="Copy Bitcoin Address">
+                                    <i class="fa-regular fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
+                            <!-- Ethereum -->
+                            <div class="crypto-card" data-crypto="eth" data-address="0xD2318B50f561151CBF224558e7750aD80bA3946D" onclick="window.copyCryptoAddress && window.copyCryptoAddress(this.querySelector('.crypto-copy-btn'), '0xD2318B50f561151CBF224558e7750aD80bA3946D', event)">
+                                <div class="crypto-info">
+                                    <div class="crypto-icon eth"><i class="fa-brands fa-ethereum"></i></div>
+                                    <div class="crypto-details">
+                                        <div class="crypto-name-row">
+                                            <span class="crypto-name">Ethereum</span>
+                                            <span class="crypto-symbol">ETH / ERC20</span>
+                                        </div>
+                                        <span class="crypto-addr">0xD2318B50f561151CBF224558e7750aD80bA3946D</span>
+                                    </div>
+                                </div>
+                                <button class="crypto-copy-btn" onclick="window.copyCryptoAddress && window.copyCryptoAddress(this, '0xD2318B50f561151CBF224558e7750aD80bA3946D', event)" title="Copy Ethereum Address">
+                                    <i class="fa-regular fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
+                            <!-- Solana -->
+                            <div class="crypto-card" data-crypto="sol" data-address="3fmwbCTcboWs2VGSnytFqfgTS3pCyXej9V7bCCKeNfb1" onclick="window.copyCryptoAddress && window.copyCryptoAddress(this.querySelector('.crypto-copy-btn'), '3fmwbCTcboWs2VGSnytFqfgTS3pCyXej9V7bCCKeNfb1', event)">
+                                <div class="crypto-info">
+                                    <div class="crypto-icon sol">
+                                        <svg class="solana-svg" viewBox="0 0 397.7 311.7" width="20" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7z"/>
+                                            <path d="M64.6 3.8C67 1.4 70.3 0 73.8 0h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1L64.6 3.8z"/>
+                                            <path d="M333.1 120.1c-2.4-2.4-5.7-3.8-9.2-3.8H6.5c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1l-62.7-62.7z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="crypto-details">
+                                        <div class="crypto-name-row">
+                                            <span class="crypto-name">Solana</span>
+                                            <span class="crypto-symbol">SOL</span>
+                                        </div>
+                                        <span class="crypto-addr">3fmwbCTcboWs2VGSnytFqfgTS3pCyXej9V7bCCKeNfb1</span>
+                                    </div>
+                                </div>
+                                <button class="crypto-copy-btn" onclick="window.copyCryptoAddress && window.copyCryptoAddress(this, '3fmwbCTcboWs2VGSnytFqfgTS3pCyXej9V7bCCKeNfb1', event)" title="Copy Solana Address">
+                                    <i class="fa-regular fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Section Counter -->
     <div class="section-counter" id="sectionCounter">
         <span class="counter-current" id="counterCurrent">01</span>
         <div class="counter-divider"></div>
-        <span class="counter-total">04</span>
+        <span class="counter-total">05</span>
     </div>
 
     <!-- Footer -->
     <footer id="main-footer">
         <div>© 2026 All rights reserved.</div>
         <div class="footer-links">
-            <a href="https://github.com/ZeroIQs" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://zeroiqs.github.io/ZeroIQ-Wallpapers/" target="_blank" rel="noopener">Wallpapers</a>
-            <a href="https://expdf.space/" target="_blank" rel="noopener">EXPDF</a>
-            <a href="https://instagram.com/lnetl" target="_blank" rel="noopener">Instagram</a>
+            <button class="footer-tab-link active" data-section="0"><span>Amir Ali</span></button>
+            <button class="footer-tab-link" data-section="1"><span>ZeroHub</span></button>
+            <button class="footer-tab-link" data-section="2"><span>EXPDF</span></button>
+            <button class="footer-tab-link" data-section="3"><span>Wallpapers</span></button>
+            <button class="footer-tab-link" data-section="4"><span>Donate</span></button>
         </div>
     </footer>
 
@@ -2308,6 +2665,163 @@
                 ctx.lineTo(265, 235);
                 ctx.closePath();
                 ctx.fill();
+            } else if (iconType === 'heart') {
+                // Donate — Volumetric Heart shape with sleek inner cutout
+                ctx.lineWidth = 14;
+                ctx.strokeStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.moveTo(160, 100);
+                ctx.bezierCurveTo(160, 45, 65, 45, 65, 120);
+                ctx.bezierCurveTo(65, 180, 125, 235, 160, 275);
+                ctx.bezierCurveTo(195, 235, 255, 180, 255, 120);
+                ctx.bezierCurveTo(255, 45, 160, 45, 160, 100);
+                ctx.closePath();
+                ctx.fill();
+
+                // Inner heart void cutout
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(160, 145, 34, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Small center spark
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.beginPath();
+                ctx.arc(160, 145, 14, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (iconType === 'btc') {
+                // Bitcoin — Bold 3D Bitcoin Coin & ₿ Emblem
+                ctx.lineWidth = 14;
+                ctx.strokeStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(160, 160, 118, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Outer coin ring texture
+                ctx.globalAlpha = 0.3;
+                ctx.beginPath();
+                ctx.arc(160, 160, 110, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+
+                // Bitcoin spine
+                ctx.fillRect(116, 75, 26, 170);
+
+                // Top & bottom vertical hash prongs
+                ctx.fillRect(134, 55, 12, 38);
+                ctx.fillRect(162, 55, 12, 38);
+                ctx.fillRect(134, 227, 12, 38);
+                ctx.fillRect(162, 227, 12, 38);
+
+                // Top loop of B
+                ctx.beginPath();
+                ctx.moveTo(134, 85);
+                ctx.lineTo(178, 85);
+                ctx.bezierCurveTo(214, 85, 214, 150, 178, 150);
+                ctx.lineTo(134, 150);
+                ctx.closePath();
+                ctx.fill();
+
+                // Bottom loop of B
+                ctx.beginPath();
+                ctx.moveTo(134, 146);
+                ctx.lineTo(188, 146);
+                ctx.bezierCurveTo(228, 146, 228, 225, 188, 225);
+                ctx.lineTo(134, 225);
+                ctx.closePath();
+                ctx.fill();
+
+                // Punch out inner loops
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.moveTo(142, 102);
+                ctx.lineTo(174, 102);
+                ctx.bezierCurveTo(192, 102, 192, 133, 174, 133);
+                ctx.lineTo(142, 133);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(142, 163);
+                ctx.lineTo(180, 163);
+                ctx.bezierCurveTo(202, 163, 202, 208, 180, 208);
+                ctx.lineTo(142, 208);
+                ctx.closePath();
+                ctx.fill();
+                ctx.globalCompositeOperation = 'source-over';
+            } else if (iconType === 'eth') {
+                // Ethereum — Faceted 3D Octahedral Crystal Prism
+                // Top pyramid facets
+                ctx.beginPath();
+                ctx.moveTo(160, 35);
+                ctx.lineTo(82, 165);
+                ctx.lineTo(160, 132);
+                ctx.closePath();
+                ctx.fillStyle = '#ffffff';
+                ctx.globalAlpha = 0.85;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(160, 35);
+                ctx.lineTo(238, 165);
+                ctx.lineTo(160, 132);
+                ctx.closePath();
+                ctx.globalAlpha = 1.0;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(160, 132);
+                ctx.lineTo(82, 165);
+                ctx.lineTo(238, 165);
+                ctx.closePath();
+                ctx.globalAlpha = 0.7;
+                ctx.fill();
+
+                // Bottom pyramid facets
+                ctx.beginPath();
+                ctx.moveTo(160, 182);
+                ctx.lineTo(82, 182);
+                ctx.lineTo(160, 285);
+                ctx.closePath();
+                ctx.globalAlpha = 0.85;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(160, 182);
+                ctx.lineTo(238, 182);
+                ctx.lineTo(160, 285);
+                ctx.closePath();
+                ctx.globalAlpha = 1.0;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            } else if (iconType === 'sol') {
+                // Solana — 3 Sleek Parallelograms (Speed Bands)
+                // Top band
+                ctx.beginPath();
+                ctx.moveTo(68, 70);
+                ctx.lineTo(252, 70);
+                ctx.lineTo(214, 118);
+                ctx.lineTo(30, 118);
+                ctx.closePath();
+                ctx.fill();
+
+                // Middle band (reverse angle)
+                ctx.beginPath();
+                ctx.moveTo(214, 136);
+                ctx.lineTo(30, 136);
+                ctx.lineTo(68, 184);
+                ctx.lineTo(252, 184);
+                ctx.closePath();
+                ctx.fill();
+
+                // Bottom band
+                ctx.beginPath();
+                ctx.moveTo(68, 202);
+                ctx.lineTo(252, 202);
+                ctx.lineTo(214, 250);
+                ctx.lineTo(30, 250);
+                ctx.closePath();
+                ctx.fill();
             }
 
             var imgData = ctx.getImageData(0, 0, 320, 320);
@@ -2466,11 +2980,19 @@
             var shieldHomePos    = sampleIconBitmapParticles('shield', PARTICLE_COUNT);
             var pdfHomePos       = sampleIconBitmapParticles('pdf', PARTICLE_COUNT);
             var wallpaperHomePos = sampleIconBitmapParticles('wallpaper', PARTICLE_COUNT);
+            var heartHomePos     = sampleIconBitmapParticles('heart', PARTICLE_COUNT);
+            var btcHomePos       = sampleIconBitmapParticles('btc', PARTICLE_COUNT);
+            var ethHomePos       = sampleIconBitmapParticles('eth', PARTICLE_COUNT);
+            var solHomePos       = sampleIconBitmapParticles('sol', PARTICLE_COUNT);
 
             var githubColors    = generateGradientColors(githubHomePos, PARTICLE_COUNT, '#fdba74', '#7dd3fc', '#ffffff');
             var shieldColors    = generateGradientColors(shieldHomePos, PARTICLE_COUNT, '#6ee7b7', '#38bdf8', '#a5f3fc');
             var pdfColors       = generateGradientColors(pdfHomePos, PARTICLE_COUNT, '#a855f7', '#ec4899', '#ffffff');
             var wallpaperColors = generateGradientColors(wallpaperHomePos, PARTICLE_COUNT, '#06b6d4', '#ec4899', '#facc15');
+            var heartColors     = generateGradientColors(heartHomePos, PARTICLE_COUNT, '#f43f5e', '#fb7185', '#fef08a');
+            var btcColors       = generateGradientColors(btcHomePos, PARTICLE_COUNT, '#f7931a', '#fbbf24', '#fef08a');
+            var ethColors       = generateGradientColors(ethHomePos, PARTICLE_COUNT, '#627eea', '#818cf8', '#e0e7ff');
+            var solColors       = generateGradientColors(solHomePos, PARTICLE_COUNT, '#14f195', '#06b6d4', '#dc1fff');
 
             var targetHomePos  = new Float32Array(githubHomePos);
             var desiredHomePos = new Float32Array(githubHomePos);
@@ -2676,6 +3198,14 @@
             window.pdfColorsRef = pdfColors;
             window.wallpaperHomePosRef = wallpaperHomePos;
             window.wallpaperColorsRef = wallpaperColors;
+            window.heartHomePosRef = heartHomePos;
+            window.heartColorsRef = heartColors;
+            window.btcHomePosRef = btcHomePos;
+            window.btcColorsRef = btcColors;
+            window.ethHomePosRef = ethHomePos;
+            window.ethColorsRef = ethColors;
+            window.solHomePosRef = solHomePos;
+            window.solColorsRef = solColors;
         }
 
         // ==================== ZEROHUB PARTICLE ENGINE ====================
@@ -3054,12 +3584,19 @@
                 } else if (currentSlide === 3 && window.wallpaperHomePosRef) {
                     playParticleMorphSound('github');
                     window.morphToShapeRef(window.wallpaperHomePosRef, window.wallpaperColorsRef, '3D PARTICLE MESH // WALLPAPERS');
+                } else if (currentSlide === 4 && window.heartHomePosRef) {
+                    playParticleMorphSound('github');
+                    window.morphToShapeRef(window.heartHomePosRef, window.heartColorsRef, '3D PARTICLE MESH // DONATE');
                 }
             }
 
             // Update UI indicators
             tabBtns.forEach(function(b, idx) {
                 b.classList.toggle('active', idx === currentSlide);
+            });
+            document.querySelectorAll('.footer-tab-link').forEach(function(b) {
+                var sIdx = parseInt(b.getAttribute('data-section'), 10);
+                b.classList.toggle('active', sIdx === currentSlide);
             });
             if (counterEl) {
                 counterEl.textContent = String(currentSlide + 1).padStart(2, '0');
@@ -3100,37 +3637,11 @@
             );
         }
 
-        // Header Tab button click & hover particle morphing
-        tabBtns.forEach(function(btn) {
+        // Header & Footer Tab button click navigation
+        document.querySelectorAll('.tab-btn, .footer-tab-link').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var idx = parseInt(btn.getAttribute('data-section'), 10);
-                if (idx === 0 && window.morphToShapeRef && window.githubHomePosRef) {
-                    playParticleMorphSound('github');
-                    window.morphToShapeRef(window.githubHomePosRef, window.githubColorsRef, '3D PARTICLE MESH // GITHUB');
-                } else if (idx === 1 && window.morphToShapeRef && window.shieldHomePosRef) {
-                    playParticleMorphSound('github');
-                    window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROHUB SHIELD');
-                } else if (idx === 2 && window.morphToShapeRef && window.pdfHomePosRef) {
-                    playParticleMorphSound('github');
-                    window.morphToShapeRef(window.pdfHomePosRef, window.pdfColorsRef, '3D PARTICLE MESH // EXPDF TOOL');
-                } else if (idx === 3 && window.morphToShapeRef && window.wallpaperHomePosRef) {
-                    playParticleMorphSound('github');
-                    window.morphToShapeRef(window.wallpaperHomePosRef, window.wallpaperColorsRef, '3D PARTICLE MESH // WALLPAPERS');
-                }
                 goToSlide(idx);
-            });
-
-            btn.addEventListener('mouseenter', function() {
-                var idx = parseInt(btn.getAttribute('data-section'), 10);
-                if (idx === 0 && window.morphToShapeRef && window.githubHomePosRef) {
-                    window.morphToShapeRef(window.githubHomePosRef, window.githubColorsRef, '3D PARTICLE MESH // GITHUB');
-                } else if (idx === 1 && window.morphToShapeRef && window.shieldHomePosRef) {
-                    window.morphToShapeRef(window.shieldHomePosRef, window.shieldColorsRef, '3D PARTICLE MESH // ZEROHUB SHIELD');
-                } else if (idx === 2 && window.morphToShapeRef && window.pdfHomePosRef) {
-                    window.morphToShapeRef(window.pdfHomePosRef, window.pdfColorsRef, '3D PARTICLE MESH // EXPDF TOOL');
-                } else if (idx === 3 && window.morphToShapeRef && window.wallpaperHomePosRef) {
-                    window.morphToShapeRef(window.wallpaperHomePosRef, window.wallpaperColorsRef, '3D PARTICLE MESH // WALLPAPERS');
-                }
             });
         });
 
@@ -3198,7 +3709,7 @@
                 dir: 'ltr',
                 flag: '🇺🇸',
                 label: 'EN',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'Wallpapers'],
+                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'Wallpapers', 'Donate'],
                 themeLight: 'Light',
                 themeDark: 'Dark',
                 soundOn: 'Sound: On',
@@ -3233,13 +3744,21 @@
                     chips: ['380+ Curated HD Wallpapers', '13 Aesthetic Themes', '100% Free & Fast Vault'],
                     btnOpen: 'Open Wallpapers'
                 },
+                slide4: {
+                    badge: 'Support Development',
+                    title: 'Donate',
+                    subtitle: 'Support Open Source & Free Software',
+                    desc: 'Free and open-source tools built for the community. If you enjoy using them and want to support continued development and server hosting, feel free to send a tip below.',
+                    copyText: 'Copy',
+                    copiedText: 'Copied!'
+                },
                 footer: '© 2026 All rights reserved.'
             },
             ja: {
                 dir: 'ltr',
                 flag: '🇯🇵',
                 label: 'JA',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'Wallpapers'],
+                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'Wallpapers', '寄付'],
                 themeLight: 'ライト',
                 themeDark: 'ダーク',
                 soundOn: 'サウンド: オン',
@@ -3274,13 +3793,21 @@
                     chips: ['380枚以上の厳選HD壁紙', '13のテーマ', '100% 無料 & 高速ヴォールト'],
                     btnOpen: 'Wallpapersを開く'
                 },
+                slide4: {
+                    badge: '開発を支援',
+                    title: '寄付',
+                    subtitle: 'オープンソースと無料ツールの開発を支援',
+                    desc: 'コミュニティのために作られた完全無料のオープンソースツールです。プロジェクトが役に立ち、サーバー維持や今後の開発を応援したい場合は、こちらからチップを送ることができます。',
+                    copyText: 'コピー',
+                    copiedText: 'コピー完了!'
+                },
                 footer: '© 2026 全著作権所有。'
             },
             ar: {
                 dir: 'rtl',
                 flag: '🇮🇶',
                 label: 'AR',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'الخلفيات'],
+                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'الخلفيات', 'التبرع'],
                 themeLight: 'فاتح',
                 themeDark: 'داكن',
                 soundOn: 'الصوت: مفعّل',
@@ -3315,6 +3842,14 @@
                     chips: ['أكثر من 380 خلفية HD', '13 سمة مميزة', 'مجاني 100% وسريع'],
                     btnOpen: 'افتح معرض الخلفيات'
                 },
+                slide4: {
+                    badge: 'دعم التطوير',
+                    title: 'التبرع',
+                    subtitle: 'دعم المشاريع مفتوحة المصدر والبرمجيات المجانية',
+                    desc: 'أدوات وبرمجيات مجانية ومفتوحة المصدر للجميع. إذا كنت تستفيد من هذه المشاريع وترغب في دعم الاستضافة والتطوير المستمر، يمكنك إرسال دعمك عبر العناوين أدناه.',
+                    copyText: 'نسخ',
+                    copiedText: 'تم النسخ!'
+                },
                 footer: '© 2026 جميع الحقوق محفوظة.'
             }
         };
@@ -3342,9 +3877,13 @@
                 opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
             });
 
-            // Nav tabs
+            // Nav tabs (Header & Footer)
             var tabBtnsLang = document.querySelectorAll('.tab-btn span');
             tabBtnsLang.forEach(function(span, i) {
+                if (t.nav[i]) span.textContent = t.nav[i];
+            });
+            var footerTabsLang = document.querySelectorAll('.footer-tab-link span');
+            footerTabsLang.forEach(function(span, i) {
                 if (t.nav[i]) span.textContent = t.nav[i];
             });
 
@@ -3440,6 +3979,28 @@
 
                 var title3 = s3.querySelector('.content-title');
                 if (title3) title3.setAttribute('data-orig-text', title3.textContent.trim());
+            }
+
+            // Slide 4 (Donate)
+            var s4 = document.getElementById('slide-4');
+            if (s4 && t.slide4) {
+                var badgeEl4 = s4.querySelector('.content-badge span');
+                if (badgeEl4) badgeEl4.textContent = t.slide4.badge;
+                var title4 = s4.querySelector('.content-title');
+                if (title4) {
+                    title4.textContent = t.slide4.title;
+                    title4.setAttribute('data-orig-text', t.slide4.title);
+                }
+                var subtitle4 = s4.querySelector('.content-subtitle');
+                if (subtitle4) subtitle4.textContent = t.slide4.subtitle;
+                var desc4 = s4.querySelector('.content-desc');
+                if (desc4) desc4.textContent = t.slide4.desc;
+                var copySpans = s4.querySelectorAll('.crypto-copy-btn span');
+                copySpans.forEach(function(sp) {
+                    if (!sp.closest('.crypto-copy-btn').classList.contains('copied')) {
+                        sp.textContent = t.slide4.copyText;
+                    }
+                });
             }
 
             // Footer
@@ -3540,10 +4101,142 @@
             });
         }
 
+        // ==================== CRYPTO DONATION COPY HANDLER ====================
+        function copyToClipboard(text, onSuccess) {
+            if (!text) return;
+
+            function fallback() {
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.setAttribute('readonly', '');
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-9999px';
+                textarea.style.top = '0';
+                textarea.style.fontSize = '12pt';
+                textarea.style.border = '0';
+                textarea.style.padding = '0';
+                textarea.style.margin = '0';
+                textarea.style.opacity = '1';
+                textarea.style.userSelect = 'text';
+                textarea.style.webkitUserSelect = 'text';
+                document.body.appendChild(textarea);
+
+                var success = false;
+                try {
+                    textarea.focus();
+                    textarea.select();
+                    textarea.setSelectionRange(0, textarea.value.length);
+                    success = document.execCommand('copy');
+                    if (success && onSuccess) {
+                        onSuccess();
+                    }
+                } catch (err) {
+                    console.error('Fallback copy error:', err);
+                } finally {
+                    if (textarea.parentNode) {
+                        textarea.parentNode.removeChild(textarea);
+                    }
+                }
+
+                if (!success) {
+                    window.prompt('Copy address: Ctrl+C or Cmd+C, Enter', text);
+                    if (onSuccess) onSuccess();
+                }
+            }
+
+            if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+                navigator.clipboard.writeText(text).then(function() {
+                    if (onSuccess) onSuccess();
+                }).catch(function() {
+                    fallback();
+                });
+            } else {
+                fallback();
+            }
+        }
+
+        window.copyCryptoAddress = function(btn, address, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            if (!address) return;
+
+            copyToClipboard(address, function() {
+                if (btn) {
+                    var btnSpan = btn.querySelector('span');
+                    var btnIcon = btn.querySelector('i');
+                    var card = btn.closest('.crypto-card');
+
+                    btn.classList.add('copied');
+                    if (card) card.classList.add('card-copied');
+                    if (btnIcon) btnIcon.className = 'fa-solid fa-check';
+                    if (btnSpan) {
+                        var lang = document.documentElement.getAttribute('lang') || 'en';
+                        var t = (typeof translations !== 'undefined' && translations[lang]) ? translations[lang] : { slide4: { copiedText: 'Copied!', copyText: 'Copy' } };
+                        btnSpan.textContent = (t.slide4 && t.slide4.copiedText) ? t.slide4.copiedText : 'Copied!';
+                    }
+
+                    setTimeout(function() {
+                        btn.classList.remove('copied');
+                        if (card) card.classList.remove('card-copied');
+                        if (btnIcon) btnIcon.className = 'fa-regular fa-copy';
+                        if (btnSpan) {
+                            var lang = document.documentElement.getAttribute('lang') || 'en';
+                            var t = (typeof translations !== 'undefined' && translations[lang]) ? translations[lang] : { slide4: { copiedText: 'Copied!', copyText: 'Copy' } };
+                            btnSpan.textContent = (t.slide4 && t.slide4.copyText) ? t.slide4.copyText : 'Copy';
+                        }
+                    }, 2000);
+                }
+            });
+        };
+
+        function initCryptoCopyHandlers() {
+            var cards = document.querySelectorAll('.crypto-card');
+            cards.forEach(function(card) {
+                var copyBtn = card.querySelector('.crypto-copy-btn');
+                var address = card.getAttribute('data-address');
+                var cryptoType = card.getAttribute('data-crypto');
+                if (!address) return;
+
+                card.addEventListener('click', function(e) {
+                    window.copyCryptoAddress(copyBtn, address, e);
+                });
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', function(e) {
+                        window.copyCryptoAddress(copyBtn, address, e);
+                    });
+                }
+
+                // 3D Particle Hover Morphing: Bitcoin, Ethereum, Solana
+                card.addEventListener('mouseenter', function() {
+                    if (currentSlide === 4 && window.morphToShapeRef) {
+                        if (cryptoType === 'btc' && window.btcHomePosRef) {
+                            playParticleMorphSound('github');
+                            window.morphToShapeRef(window.btcHomePosRef, window.btcColorsRef, '3D PARTICLE MESH // BITCOIN');
+                        } else if (cryptoType === 'eth' && window.ethHomePosRef) {
+                            playParticleMorphSound('github');
+                            window.morphToShapeRef(window.ethHomePosRef, window.ethColorsRef, '3D PARTICLE MESH // ETHEREUM');
+                        } else if (cryptoType === 'sol' && window.solHomePosRef) {
+                            playParticleMorphSound('github');
+                            window.morphToShapeRef(window.solHomePosRef, window.solColorsRef, '3D PARTICLE MESH // SOLANA');
+                        }
+                    }
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    if (currentSlide === 4 && window.morphToShapeRef && window.heartHomePosRef) {
+                        window.morphToShapeRef(window.heartHomePosRef, window.heartColorsRef, '3D PARTICLE MESH // DONATE');
+                    }
+                });
+            });
+        }
+
         // ==================== INIT ====================
         document.addEventListener('DOMContentLoaded', function() {
             setTheme(currentTheme, true);
             applyLanguage(currentLang, true);
+            initCryptoCopyHandlers();
 
             var themeBtn = document.getElementById('themeToggleBtn');
             if (themeBtn) {
