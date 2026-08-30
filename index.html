@@ -3570,6 +3570,12 @@
             // Update state
             currentSlide = index;
 
+            // Sync URL hash seamlessly
+            var slideHashes = ['#amir', '#zerohub', '#expdf', '#wallpapers', '#donate'];
+            if (window.history && window.history.replaceState && slideHashes[currentSlide]) {
+                window.history.replaceState(null, '', slideHashes[currentSlide]);
+            }
+
             // Fluidly morph 3D particle mesh on single shared canvas across all slides!
             if (window.morphToShapeRef) {
                 if (currentSlide === 0 && window.githubHomePosRef) {
@@ -4237,6 +4243,27 @@
             setTheme(currentTheme, true);
             applyLanguage(currentLang, true);
             initCryptoCopyHandlers();
+
+            // Initial URL Hash & Query Route Jump (e.g. zeroiq.site/#donate or /?donate)
+            var initialHash = (window.location.hash || '').toLowerCase();
+            var initialSearch = (window.location.search || '').toLowerCase();
+            if (initialHash.includes('donate') || initialSearch.includes('donate') || initialSearch.includes('slide=4')) {
+                setTimeout(function() {
+                    goToSlide(4);
+                }, 150);
+            } else if (initialHash.includes('wallpapers') || initialSearch.includes('wallpapers') || initialSearch.includes('slide=3')) {
+                setTimeout(function() {
+                    goToSlide(3);
+                }, 150);
+            } else if (initialHash.includes('expdf') || initialSearch.includes('expdf') || initialSearch.includes('slide=2')) {
+                setTimeout(function() {
+                    goToSlide(2);
+                }, 150);
+            } else if (initialHash.includes('zerohub') || initialSearch.includes('zerohub') || initialSearch.includes('slide=1')) {
+                setTimeout(function() {
+                    goToSlide(1);
+                }, 150);
+            }
 
             var themeBtn = document.getElementById('themeToggleBtn');
             if (themeBtn) {
