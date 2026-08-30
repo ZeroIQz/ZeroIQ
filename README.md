@@ -32,8 +32,9 @@ A modern, interactive cel-shaded showcase web application featuring lightweight 
 
 ## 💖 Support & Tips
 
-Free and open-source tools built for the community. If you enjoy using them and want to support continued development and server hosting, feel free to send a tip below:
+Free and open-source tools built for the community. If you enjoy using them and want to support continued development and server hosting, feel free to send a tip below or visit the dedicated **[Donate Page](https://zeroiq.site/donate)**:
 
+- **Donate Page:** [zeroiq.site/donate](https://zeroiq.site/donate)
 - **Bitcoin (BTC):** `bc1q9f4hsmyvk8cyvg3axzntvxqdtgfzkc98jjds77`
 - **Ethereum (ETH / ERC-20):** `0xD2318B50f561151CBF224558e7750aD80bA3946D`
 - **Solana (SOL):** `3fmwbCTcboWs2VGSnytFqfgTS3pCyXej9V7bCCKeNfb1`
