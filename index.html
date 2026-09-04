@@ -12,7 +12,7 @@
     <title>ZeroIQ</title>
 
     <!-- Meta Tags -->
-    <meta name="description" content="Amir Ali (@sytus) - Creator of Zerohub and EXPDF. Developer portfolio and showcase.">
+    <meta name="description" content="Amir Ali - Creator of Zerohub and EXPDF. Developer portfolio and showcase.">
     <meta name="theme-color" content="#050a18">
 
     <!-- Favicon / Tab Icon -->
@@ -2055,12 +2055,6 @@
                             <a href="https://github.com/ZeroIQs" target="_blank" rel="noopener" class="btn-primary">
                                 <i class="fa-brands fa-github"></i> <span>GitHub</span>
                             </a>
-                            <a href="https://t.me/sytus" target="_blank" rel="noopener" class="btn-ghost">
-                                <i class="fa-brands fa-telegram"></i> Telegram
-                            </a>
-                            <a href="https://instagram.com/lnetl" target="_blank" rel="noopener" class="btn-ghost">
-                                <i class="fa-brands fa-instagram"></i> Instagram
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -3214,10 +3208,8 @@
             }
             animate3d();
 
-            // --- HOVER MORPHING LISTENERS FOR GITHUB / TELEGRAM / INSTAGRAM ---
+            // --- HOVER MORPHING LISTENERS FOR GITHUB ---
             var githubBtn   = document.querySelector('.content-actions a[href*="github"]');
-            var telegramBtn = document.querySelector('.content-actions a[href*="t.me"]');
-            var instaBtn    = document.querySelector('.content-actions a[href*="instagram"]');
             var statusLabel = document.getElementById('particle-status-label');
 
             function morphToShape(newHomeArray, newColorsArray, labelText) {
@@ -3952,10 +3944,6 @@
                 });
                 var githubSpan = s0.querySelector('.btn-primary span');
                 if (githubSpan) githubSpan.textContent = t.slide0.btnGithub;
-                var tgBtn = s0.querySelector('a[href*="t.me"]');
-                if (tgBtn) tgBtn.childNodes[tgBtn.childNodes.length - 1].nodeValue = ' ' + t.slide0.btnTelegram;
-                var igBtn = s0.querySelector('a[href*="instagram"]');
-                if (igBtn) igBtn.childNodes[igBtn.childNodes.length - 1].nodeValue = ' ' + t.slide0.btnInstagram;
 
                 // Update data-orig-text for scramble engine
                 var title0 = s0.querySelector('.content-title');

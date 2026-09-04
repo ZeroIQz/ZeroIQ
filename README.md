@@ -2,7 +2,7 @@
 
 A modern, interactive cel-shaded showcase web application featuring lightweight open-source software tools for Windows and the Web.
 
-**Developer:** Amir Ali ([@sytus](https://t.me/sytus)) · **Instagram:** [@lnetl](https://instagram.com/lnetl) · **GitHub:** [@ZeroIQs](https://github.com/ZeroIQs)
+**Developer:** Amir Ali · **GitHub:** [@ZeroIQs](https://github.com/ZeroIQs)
 
 ---
 
@@ -50,4 +50,4 @@ Free and open-source tools built for the community. If you enjoy using them and 
 
 ---
 
-© 2026 **Amir Ali** (`@sytus`) · [Telegram](https://t.me/sytus) · [Instagram](https://instagram.com/lnetl)
+© 2026 **Amir Ali** · [GitHub](https://github.com/ZeroIQs)
