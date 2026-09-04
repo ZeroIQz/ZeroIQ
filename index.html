@@ -23,7 +23,7 @@
     <!-- Google Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&family=JetBrains+Mono:wght@500;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -79,11 +79,6 @@
             color: #c2410c;
         }
 
-        [data-theme="light"] .action-btn {
-            background: rgba(15, 23, 42, 0.05);
-            border-color: rgba(15, 23, 42, 0.15);
-            color: #0f172a;
-        }
 
         /* ===== RESET & BASE ===== */
         *, *::before, *::after {
@@ -567,11 +562,10 @@
             white-space: nowrap;
         }
 
-        .action-btn:hover,
-        .action-btn.substep-active {
+        .action-btn:hover {
             background: rgba(218, 119, 86, 0.22) !important;
-            color: #ffffff !important;
-            box-shadow: 0 0 16px var(--accent-glow) !important;
+            color: var(--accent) !important;
+            box-shadow: 0 0 25px rgba(218, 119, 86, 0.35) !important;
         }
 
         /* ===== FULLSCREEN HERO SLIDER ===== */
@@ -1337,15 +1331,7 @@
             color: #c2410c;
         }
 
-        [data-theme="light"] .action-btn {
-            color: rgba(0, 0, 0, 0.5);
-            border-color: rgba(0, 0, 0, 0.06);
-            background: rgba(0, 0, 0, 0.02);
-        }
-        [data-theme="light"] .action-btn:hover {
-            color: #0f172a;
-            background: rgba(0, 0, 0, 0.05);
-        }
+
 
         [data-theme="light"] .content-title {
             background: linear-gradient(135deg, #0f172a 0%, #334155 60%, #475569 100%);
@@ -1416,222 +1402,6 @@
 
         [data-theme="light"] .scroll-progress {
             background: rgba(0, 0, 0, 0.04);
-        }
-
-        /* ===== LANGUAGE SELECTOR ===== */
-        .lang-selector {
-            position: relative;
-        }
-
-        /* Trigger button — identical DNA to .action-btn */
-        .lang-btn {
-            padding: 0.55rem 1.35rem;
-            border: none;
-            background: rgba(22, 27, 34, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            -webkit-mask: 
-                radial-gradient(circle 9px at 0 0, transparent 8.5px, #000 9px) top left,
-                radial-gradient(circle 9px at 100% 0, transparent 8.5px, #000 9px) top right,
-                radial-gradient(circle 9px at 0 100%, transparent 8.5px, #000 9px) bottom left,
-                radial-gradient(circle 9px at 100% 100%, transparent 8.5px, #000 9px) bottom right;
-            -webkit-mask-size: 51% 51%;
-            -webkit-mask-repeat: no-repeat;
-            mask: 
-                radial-gradient(circle 9px at 0 0, transparent 8.5px, #000 9px) top left,
-                radial-gradient(circle 9px at 100% 0, transparent 8.5px, #000 9px) top right,
-                radial-gradient(circle 9px at 0 100%, transparent 8.5px, #000 9px) bottom left,
-                radial-gradient(circle 9px at 100% 100%, transparent 8.5px, #000 9px) bottom right;
-            mask-size: 51% 51%;
-            mask-repeat: no-repeat;
-            color: rgba(255, 255, 255, 0.8);
-            font-family: var(--font-main);
-            font-weight: 700;
-            font-size: 0.82rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.45rem;
-            white-space: nowrap;
-        }
-
-        .lang-btn:hover,
-        .lang-selector.open .lang-btn {
-            background: linear-gradient(180deg, #da7756 0%, #c2410c 100%);
-            color: #ffffff;
-            box-shadow: 0 0 16px rgba(218, 119, 86, 0.5);
-        }
-
-        .lang-btn .lang-flag {
-            font-size: 0.95rem;
-            line-height: 1;
-        }
-
-        .lang-btn .lang-chevron {
-            font-size: 0.6rem;
-            opacity: 0.55;
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .lang-selector.open .lang-chevron {
-            transform: rotate(180deg);
-            opacity: 1;
-        }
-
-        /* Dropdown panel — frosted glass matching the header bar */
-        .lang-dropdown {
-            position: absolute;
-            top: calc(100% + 0.6rem);
-            right: 0;
-            min-width: 148px;
-            background: rgba(5, 10, 24, 0.72);
-            backdrop-filter: blur(28px) saturate(1.4);
-            -webkit-backdrop-filter: blur(28px) saturate(1.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            padding: 0.35rem;
-            z-index: 200;
-            opacity: 0;
-            transform: translateY(-10px) scale(0.95);
-            transform-origin: top right;
-            pointer-events: none;
-            transition: opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow:
-                0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-                0 20px 60px rgba(0, 0, 0, 0.65),
-                0 0 40px rgba(218, 119, 86, 0.06);
-        }
-
-        html[dir="rtl"] .lang-dropdown {
-            right: auto;
-            left: 0;
-            transform-origin: top left;
-        }
-
-        .lang-selector.open .lang-dropdown {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: all;
-        }
-
-        /* Each option row */
-        .lang-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.52rem 0.8rem;
-            border-radius: 12px;
-            cursor: pointer;
-            font-family: var(--font-main);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.2px;
-            color: rgba(255, 255, 255, 0.5);
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-            background: transparent;
-            width: 100%;
-            text-align: left;
-        }
-
-        html[dir="rtl"] .lang-option {
-            text-align: right;
-        }
-
-        .lang-option:hover {
-            background: rgba(255, 255, 255, 0.055);
-            border-color: rgba(255, 255, 255, 0.07);
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .lang-option.active {
-            background: rgba(218, 119, 86, 0.13);
-            border-color: rgba(218, 119, 86, 0.22);
-            color: var(--accent);
-        }
-
-        .lang-option.active:hover {
-            background: rgba(218, 119, 86, 0.2);
-            box-shadow: 0 0 12px rgba(218, 119, 86, 0.15);
-        }
-
-        .lang-option .opt-flag {
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        /* ===== ARABIC FONT OVERRIDE ===== */
-        html[lang="ar"] body,
-        html[lang="ar"] .content-title,
-        html[lang="ar"] .content-subtitle,
-        html[lang="ar"] .content-desc,
-        html[lang="ar"] .content-badge span,
-        html[lang="ar"] .bullet-chip span,
-        html[lang="ar"] .btn-primary span,
-        html[lang="ar"] .btn-ghost,
-        html[lang="ar"] .tab-btn span,
-        html[lang="ar"] #main-footer,
-        html[lang="ar"] .lang-btn,
-        html[lang="ar"] .lang-option {
-            font-family: 'Noto Kufi Arabic', 'Space Grotesk', sans-serif;
-        }
-
-        /* ===== JAPANESE FONT OVERRIDE ===== */
-        html[lang="ja"] body,
-        html[lang="ja"] .content-title,
-        html[lang="ja"] .content-subtitle,
-        html[lang="ja"] .content-desc,
-        html[lang="ja"] .content-badge span,
-        html[lang="ja"] .bullet-chip span,
-        html[lang="ja"] .btn-primary span,
-        html[lang="ja"] .btn-ghost,
-        html[lang="ja"] .tab-btn span,
-        html[lang="ja"] #main-footer,
-        html[lang="ja"] .lang-btn,
-        html[lang="ja"] .lang-option {
-            font-family: 'Noto Sans JP', 'Space Grotesk', sans-serif;
-        }
-
-        /* ===== LIGHT THEME LANG OVERRIDES ===== */
-        [data-theme="light"] .lang-btn {
-            background: rgba(15, 23, 42, 0.05);
-            border-color: rgba(15, 23, 42, 0.12);
-            color: rgba(15, 23, 42, 0.6);
-        }
-        [data-theme="light"] .lang-btn:hover,
-        [data-theme="light"] .lang-selector.open .lang-btn {
-            background: rgba(194, 65, 12, 0.1);
-            border-color: var(--accent-dark);
-            color: var(--accent-dark);
-            box-shadow: 0 0 14px rgba(194, 65, 12, 0.18);
-        }
-        [data-theme="light"] .lang-dropdown {
-            background: rgba(248, 250, 252, 0.85);
-            backdrop-filter: blur(28px) saturate(1.5);
-            -webkit-backdrop-filter: blur(28px) saturate(1.5);
-            border-color: rgba(15, 23, 42, 0.1);
-            box-shadow:
-                0 0 0 1px rgba(15, 23, 42, 0.04) inset,
-                0 20px 60px rgba(0, 0, 0, 0.12);
-        }
-        [data-theme="light"] .lang-option {
-            color: rgba(15, 23, 42, 0.5);
-        }
-        [data-theme="light"] .lang-option:hover {
-            background: rgba(15, 23, 42, 0.05);
-            border-color: rgba(15, 23, 42, 0.08);
-            color: #0f172a;
-        }
-        [data-theme="light"] .lang-option.active {
-            background: rgba(194, 65, 12, 0.08);
-            border-color: rgba(194, 65, 12, 0.18);
-            color: var(--accent-dark);
-        }
-        [data-theme="light"] .lang-option.active:hover {
-            background: rgba(194, 65, 12, 0.13);
-            box-shadow: 0 0 10px rgba(194, 65, 12, 0.12);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -1738,9 +1508,7 @@
                 z-index: 110;
             }
 
-            .action-btn, .lang-btn {
-                padding: 0.38rem 0.55rem;
-                font-size: 0.74rem;
+            .action-btn {
                 padding: 0.32rem 0.55rem !important;
                 font-size: 0.7rem !important;
             }
@@ -2032,31 +1800,11 @@
         </nav>
     </header>
 
-    <!-- Top Right Theme Toggle Button + Language Selector -->
+    <!-- Top Right Theme Toggle Button -->
     <div class="header-actions">
         <button class="action-btn" id="themeToggleBtn" title="Toggle Theme">
             <i class="fa-solid fa-sun" id="themeIcon"></i> <span id="themeBtnText">Light</span>
         </button>
-
-        <!-- Language Selector -->
-        <div class="lang-selector" id="langSelector">
-            <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
-                <span class="lang-flag" id="langFlag">🇺🇸</span>
-                <span id="langLabel">EN</span>
-                <i class="fa-solid fa-chevron-down lang-chevron"></i>
-            </button>
-            <div class="lang-dropdown" id="langDropdown" role="listbox">
-                <button class="lang-option active" data-lang="en" role="option">
-                    <span class="opt-flag">🇺🇸</span> English
-                </button>
-                <button class="lang-option" data-lang="ja" role="option">
-                    <span class="opt-flag">🇯🇵</span> 日本語
-                </button>
-                <button class="lang-option" data-lang="ar" role="option">
-                    <span class="opt-flag">🇮🇶</span> العربية
-                </button>
-            </div>
-        </div>
     </div>
 
     <!-- Fullscreen Hero Slider Container -->
@@ -3497,337 +3245,6 @@
             }
         });
 
-        // ==================== LANGUAGE / i18n SYSTEM ====================
-        var translations = {
-            en: {
-                dir: 'ltr',
-                flag: '🇺🇸',
-                label: 'EN',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'Wallpapers', 'Donate'],
-                themeLight: 'Light',
-                themeDark: 'Dark',
-                soundOn: 'Sound: On',
-                soundOff: 'Sound: Off',
-                slide0: {
-                    badge: 'Software Developer',
-                    subtitle: 'Software & Web Application Developer',
-                    desc: 'Building lightweight, open-source, high-efficiency tools for Windows and the Web with a strong focus on user privacy and clean architecture.',
-                    chips: ['Windows & Web Apps', 'Open Source Creator', 'Clean & Fast Software', 'Privacy-First Focus'],
-                    btnGithub: 'GitHub',
-                    btnTelegram: 'Telegram',
-                    btnInstagram: 'Instagram'
-                },
-                slide1: {
-                    badge: 'All-in-One Windows Utility',
-                    subtitle: 'All-in-One Windows Optimization Hub',
-                    desc: 'Fast, safe & native Windows utility hub featuring 1-click silent app installs, deep cache cleaning, Windows debloat, live RAM flush, deep uninstaller, and update controls.',
-                    chips: ['App Installer & Debloat', 'RAM Flush & Deep Cleaner', '100% Free & Open Source'],
-                    btnDownload: 'View & Download on GitHub'
-                },
-                slide2: {
-                    badge: 'In-Browser Web Tools',
-                    subtitle: 'Free In-Browser PDF Utilities',
-                    desc: 'Merge, compress, and split PDFs instantly without uploading files to remote servers — 100% local browser processing for maximum privacy.',
-                    chips: ['100% Local Processing', 'No Account Required', '100% Free Tools'],
-                    btnOpen: 'Open EXPDF (expdf.space)'
-                },
-                slide3: {
-                    badge: 'Curated Wallpaper Vault',
-                    subtitle: 'Curated HD Wallpaper Gallery & Vault',
-                    desc: 'Explore 380+ curated HD and 4K wallpapers across 13 unique themes with instant search, category filtering, theme presets, and 1-click full-resolution downloads.',
-                    chips: ['380+ Curated HD Wallpapers', '13 Aesthetic Themes', '100% Free & Fast Vault'],
-                    btnOpen: 'Open Wallpapers'
-                },
-                slide4: {
-                    badge: 'Support Development',
-                    title: 'Donate',
-                    subtitle: 'Support Open Source & Free Software',
-                    desc: 'Free and open-source tools built for the community. If you enjoy using them and want to support continued development and server hosting, feel free to send a tip below.',
-                    copyText: 'Copy',
-                    copiedText: 'Copied!'
-                },
-                footer: '© 2026 All rights reserved.'
-            },
-            ja: {
-                dir: 'ltr',
-                flag: '🇯🇵',
-                label: 'JA',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'Wallpapers', '寄付'],
-                themeLight: 'ライト',
-                themeDark: 'ダーク',
-                soundOn: 'サウンド: オン',
-                soundOff: 'サウンド: オフ',
-                slide0: {
-                    badge: 'ソフトウェア開発者',
-                    subtitle: 'ソフトウェア & Webアプリケーション開発者',
-                    desc: 'ユーザーのプライバシーとクリーンなアーキテクチャを最重視しながら、Windows とWebのための軽量かつ高効率なオープンソースツールを開発しています。',
-                    chips: ['Windows & Webアプリ', 'オープンソース作者', 'クリーン & 高速ソフトウェア', 'プライバシー優先'],
-                    btnGithub: 'GitHub',
-                    btnTelegram: 'Telegram',
-                    btnInstagram: 'Instagram'
-                },
-                slide1: {
-                    badge: 'オールインワン Windows ユーティリティ',
-                    subtitle: 'オールインワン Windows 最適化ハブ',
-                    desc: 'ワンクリックのサイレントアプリインストール、詳細キャッシュクリーニング、Windowsデブロート、リアルタイムRAMフラッシュ、完全アンインストーラー、更新制御を備えた高速で安全なネイティブWindowsツール。',
-                    chips: ['アプリ管理 & デブロート', 'RAM解放 & 深層クリーナー', '100% 無料 & オープンソース'],
-                    btnDownload: 'GitHubで確認 & ダウンロード'
-                },
-                slide2: {
-                    badge: 'ブラウザ内Webツール',
-                    subtitle: '無料のブラウザ内PDFユーティリティ',
-                    desc: 'ファイルをリモートサーバーにアップロードすることなく、PDFの結合・圧縮・分割を即座に実行 — 最大限のプライバシーを守る100%ローカル処理。',
-                    chips: ['100% ローカル処理', 'アカウント不要', '100% 無料ツール'],
-                    btnOpen: 'EXPDFを開く (expdf.space)'
-                },
-                slide3: {
-                    badge: '厳選壁紙ヴォールト',
-                    subtitle: '厳選されたHD壁紙ギャラリー & ヴォールト',
-                    desc: '13のユニークなテーマにわたる380枚以上の厳選されたHD・4K壁紙を探索。即時検索、カテゴリー絞り込み、テーマプリセット、ワンクリック高解像度ダウンロードに対応。',
-                    chips: ['380枚以上の厳選HD壁紙', '13のテーマ', '100% 無料 & 高速ヴォールト'],
-                    btnOpen: 'Wallpapersを開く'
-                },
-                slide4: {
-                    badge: '開発を支援',
-                    title: '寄付',
-                    subtitle: 'オープンソースと無料ツールの開発を支援',
-                    desc: 'コミュニティのために作られた完全無料のオープンソースツールです。プロジェクトが役に立ち、サーバー維持や今後の開発を応援したい場合は、こちらからチップを送ることができます。',
-                    copyText: 'コピー',
-                    copiedText: 'コピー完了!'
-                },
-                footer: '© 2026 全著作権所有。'
-            },
-            ar: {
-                dir: 'rtl',
-                flag: '🇮🇶',
-                label: 'AR',
-                nav: ['Amir Ali', 'ZeroHub', 'EXPDF', 'الخلفيات', 'التبرع'],
-                themeLight: 'فاتح',
-                themeDark: 'داكن',
-                soundOn: 'الصوت: مفعّل',
-                soundOff: 'الصوت: مُعطَّل',
-                slide0: {
-                    badge: 'مطوّر برمجيات',
-                    subtitle: 'مطوّر تطبيقات برمجية وويب',
-                    desc: 'أبني أدوات خفيفة ومفتوحة المصدر وعالية الكفاءة لنظام Windows والويب، مع تركيز قوي على خصوصية المستخدم والبنية النظيفة.',
-                    chips: ['تطبيقات Windows والويب', 'مبدع مفتوح المصدر', 'برمجيات نظيفة وسريعة', 'أولوية الخصوصية'],
-                    btnGithub: 'GitHub',
-                    btnTelegram: 'Telegram',
-                    btnInstagram: 'Instagram'
-                },
-                slide1: {
-                    badge: 'أداة Windows شاملة',
-                    subtitle: 'مركز شامل لتحسين وتسريع نظام Windows',
-                    desc: 'مركز أدوات Windows سريع وآمن يوفر تثبيت البرامج الصامت بنقرة واحدة، تنظيف الكاش العميق، إزالة البرامج الزائدة (Debloat)، تفريغ الرام الحي، إلغاء التثبيت العميق، والتحكم بتحديثات النظام.',
-                    chips: ['تثبيت البرامج وتنظيف النظام', 'تفريغ الرام وتنظيف عميق', '100% مجاني ومفتوح المصدر'],
-                    btnDownload: 'عرض وتحميل من GitHub'
-                },
-                slide2: {
-                    badge: 'أدوات ويب داخل المتصفح',
-                    subtitle: 'أدوات PDF مجانية داخل المتصفح',
-                    desc: 'ادمج وضغّط وقسّم ملفات PDF فورياً دون رفعها إلى خوادم بعيدة — معالجة محلية 100% لأقصى درجات الخصوصية.',
-                    chips: ['معالجة محلية 100%', 'لا حاجة لحساب', 'أدوات مجانية 100%'],
-                    btnOpen: 'افتح EXPDF (expdf.space)'
-                },
-                slide3: {
-                    badge: 'خزينة خلفيات منتقاة',
-                    subtitle: 'معرض وخزينة خلفيات بدقة فائقة HD',
-                    desc: 'استكشف أكثر من 380 خلفية منتقاة بدقة HD و 4K عبر 13 سمة مميزة، مع بحث فوري، تصفية حسب الفئات، سمات جاهزة، وتنزيل بضغطة واحدة بالدقة الكاملة.',
-                    chips: ['أكثر من 380 خلفية HD', '13 سمة مميزة', 'مجاني 100% وسريع'],
-                    btnOpen: 'افتح معرض الخلفيات'
-                },
-                slide4: {
-                    badge: 'دعم التطوير',
-                    title: 'التبرع',
-                    subtitle: 'دعم المشاريع مفتوحة المصدر والبرمجيات المجانية',
-                    desc: 'أدوات وبرمجيات مجانية ومفتوحة المصدر للجميع. إذا كنت تستفيد من هذه المشاريع وترغب في دعم الاستضافة والتطوير المستمر، يمكنك إرسال دعمك عبر العناوين أدناه.',
-                    copyText: 'نسخ',
-                    copiedText: 'تم النسخ!'
-                },
-                footer: '© 2026 جميع الحقوق محفوظة.'
-            }
-        };
-
-        var currentLang = localStorage.getItem('zeroiqs_lang') || 'en';
-
-        function applyLanguage(lang, isInit) {
-            var t = translations[lang];
-            if (!t) return;
-            currentLang = lang;
-            localStorage.setItem('zeroiqs_lang', lang);
-
-            // Direction & lang attribute
-            document.documentElement.setAttribute('lang', lang);
-            document.documentElement.setAttribute('dir', t.dir);
-
-            // Update lang button label
-            var flagEl = document.getElementById('langFlag');
-            var labelEl = document.getElementById('langLabel');
-            if (flagEl) flagEl.textContent = t.flag;
-            if (labelEl) labelEl.textContent = t.label;
-
-            // Update active option
-            document.querySelectorAll('.lang-option').forEach(function(opt) {
-                opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
-            });
-
-            // Nav tabs (Header & Footer)
-            var tabBtnsLang = document.querySelectorAll('.tab-btn span');
-            tabBtnsLang.forEach(function(span, i) {
-                if (t.nav[i]) span.textContent = t.nav[i];
-            });
-            var footerTabsLang = document.querySelectorAll('.footer-tab-link span');
-            footerTabsLang.forEach(function(span, i) {
-                if (t.nav[i]) span.textContent = t.nav[i];
-            });
-
-            // Theme button text
-            var themeTxt = document.getElementById('themeBtnText');
-            if (themeTxt) {
-                var themeNow = document.documentElement.getAttribute('data-theme') || 'dark';
-                themeTxt.textContent = themeNow === 'light' ? t.themeDark : t.themeLight;
-            }
-
-
-
-            // Slide 0
-            var s0 = document.getElementById('slide-0');
-            if (s0) {
-                var badgeEl0 = s0.querySelector('.content-badge span');
-                if (badgeEl0) badgeEl0.textContent = t.slide0.badge;
-                var subtitle0 = s0.querySelector('.content-subtitle');
-                if (subtitle0) subtitle0.textContent = t.slide0.subtitle;
-                var desc0 = s0.querySelector('.content-desc');
-                if (desc0) desc0.textContent = t.slide0.desc;
-                var chips0 = s0.querySelectorAll('.bullet-chip span');
-                chips0.forEach(function(chip, i) {
-                    if (t.slide0.chips[i]) chip.textContent = t.slide0.chips[i];
-                });
-                var githubSpan = s0.querySelector('.btn-primary span');
-                if (githubSpan) githubSpan.textContent = t.slide0.btnGithub;
-
-                // Update data-orig-text for scramble engine
-                var title0 = s0.querySelector('.content-title');
-                if (title0) title0.setAttribute('data-orig-text', title0.textContent.trim());
-            }
-
-            // Slide 1
-            var s1 = document.getElementById('slide-1');
-            if (s1) {
-                var badgeEl1 = s1.querySelector('.content-badge span');
-                if (badgeEl1) badgeEl1.textContent = t.slide1.badge;
-                var subtitle1 = s1.querySelector('.content-subtitle');
-                if (subtitle1) subtitle1.textContent = t.slide1.subtitle;
-                var desc1 = s1.querySelector('.content-desc');
-                if (desc1) desc1.textContent = t.slide1.desc;
-                var chips1 = s1.querySelectorAll('.bullet-chip span');
-                chips1.forEach(function(chip, i) {
-                    if (t.slide1.chips[i]) chip.textContent = t.slide1.chips[i];
-                });
-                var dlBtn = s1.querySelector('.btn-primary span');
-                if (dlBtn) dlBtn.textContent = t.slide1.btnDownload;
-
-                var title1 = s1.querySelector('.content-title');
-                if (title1) title1.setAttribute('data-orig-text', title1.textContent.trim());
-            }
-
-            // Slide 2
-            var s2 = document.getElementById('slide-2');
-            if (s2) {
-                var badgeEl2 = s2.querySelector('.content-badge span');
-                if (badgeEl2) badgeEl2.textContent = t.slide2.badge;
-                var subtitle2 = s2.querySelector('.content-subtitle');
-                if (subtitle2) subtitle2.textContent = t.slide2.subtitle;
-                var desc2 = s2.querySelector('.content-desc');
-                if (desc2) desc2.textContent = t.slide2.desc;
-                var chips2 = s2.querySelectorAll('.bullet-chip span');
-                chips2.forEach(function(chip, i) {
-                    if (t.slide2.chips[i]) chip.textContent = t.slide2.chips[i];
-                });
-                var openBtn = s2.querySelector('.btn-primary span');
-                if (openBtn) openBtn.textContent = t.slide2.btnOpen;
-
-                var title2 = s2.querySelector('.content-title');
-                if (title2) title2.setAttribute('data-orig-text', title2.textContent.trim());
-            }
-
-            // Slide 3 (Wallpapers)
-            var s3 = document.getElementById('slide-3');
-            if (s3 && t.slide3) {
-                var badgeEl3 = s3.querySelector('.content-badge span');
-                if (badgeEl3) badgeEl3.textContent = t.slide3.badge;
-                var subtitle3 = s3.querySelector('.content-subtitle');
-                if (subtitle3) subtitle3.textContent = t.slide3.subtitle;
-                var desc3 = s3.querySelector('.content-desc');
-                if (desc3) desc3.textContent = t.slide3.desc;
-                var chips3 = s3.querySelectorAll('.bullet-chip span');
-                chips3.forEach(function(chip, i) {
-                    if (t.slide3.chips[i]) chip.textContent = t.slide3.chips[i];
-                });
-                var openBtn3 = s3.querySelector('.btn-primary span');
-                if (openBtn3) openBtn3.textContent = t.slide3.btnOpen;
-
-                var title3 = s3.querySelector('.content-title');
-                if (title3) title3.setAttribute('data-orig-text', title3.textContent.trim());
-            }
-
-            // Slide 4 (Donate)
-            var s4 = document.getElementById('slide-4');
-            if (s4 && t.slide4) {
-                var badgeEl4 = s4.querySelector('.content-badge span');
-                if (badgeEl4) badgeEl4.textContent = t.slide4.badge;
-                var title4 = s4.querySelector('.content-title');
-                if (title4) {
-                    title4.textContent = t.slide4.title;
-                    title4.setAttribute('data-orig-text', t.slide4.title);
-                }
-                var subtitle4 = s4.querySelector('.content-subtitle');
-                if (subtitle4) subtitle4.textContent = t.slide4.subtitle;
-                var desc4 = s4.querySelector('.content-desc');
-                if (desc4) desc4.textContent = t.slide4.desc;
-                var copySpans = s4.querySelectorAll('.crypto-copy-btn span');
-                copySpans.forEach(function(sp) {
-                    if (!sp.closest('.crypto-copy-btn').classList.contains('copied')) {
-                        sp.textContent = t.slide4.copyText;
-                    }
-                });
-            }
-
-            // Footer
-            var footerCopy = document.querySelector('#main-footer > div:first-child');
-            if (footerCopy) footerCopy.textContent = t.footer;
-        }
-
-        // Language dropdown toggle
-        var langSelector = document.getElementById('langSelector');
-        var langBtn = document.getElementById('langBtn');
-        var langDropdown = document.getElementById('langDropdown');
-
-        if (langBtn && langSelector) {
-            langBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                var isOpen = langSelector.classList.toggle('open');
-                langBtn.setAttribute('aria-expanded', isOpen);
-            });
-
-            document.addEventListener('click', function() {
-                langSelector.classList.remove('open');
-                langBtn.setAttribute('aria-expanded', 'false');
-            });
-
-            document.querySelectorAll('.lang-option').forEach(function(opt) {
-                opt.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    var chosenLang = opt.getAttribute('data-lang');
-                    langSelector.classList.remove('open');
-                    langBtn.setAttribute('aria-expanded', 'false');
-                    if (chosenLang !== currentLang) {
-                        applyLanguage(chosenLang, false);
-                    }
-                });
-            });
-        }
-
         // ==================== THEME MANAGEMENT ====================
         var currentTheme = localStorage.getItem('zeroiqs_theme') || 'light';
 
@@ -3961,21 +3378,13 @@
                     btn.classList.add('copied');
                     if (card) card.classList.add('card-copied');
                     if (btnIcon) btnIcon.className = 'fa-solid fa-check';
-                    if (btnSpan) {
-                        var lang = document.documentElement.getAttribute('lang') || 'en';
-                        var t = (typeof translations !== 'undefined' && translations[lang]) ? translations[lang] : { slide4: { copiedText: 'Copied!', copyText: 'Copy' } };
-                        btnSpan.textContent = (t.slide4 && t.slide4.copiedText) ? t.slide4.copiedText : 'Copied!';
-                    }
+                    if (btnSpan) btnSpan.textContent = 'Copied!';
 
                     setTimeout(function() {
                         btn.classList.remove('copied');
                         if (card) card.classList.remove('card-copied');
                         if (btnIcon) btnIcon.className = 'fa-regular fa-copy';
-                        if (btnSpan) {
-                            var lang = document.documentElement.getAttribute('lang') || 'en';
-                            var t = (typeof translations !== 'undefined' && translations[lang]) ? translations[lang] : { slide4: { copiedText: 'Copied!', copyText: 'Copy' } };
-                            btnSpan.textContent = (t.slide4 && t.slide4.copyText) ? t.slide4.copyText : 'Copy';
-                        }
+                        if (btnSpan) btnSpan.textContent = 'Copy';
                     }, 2000);
                 }
             });
@@ -4025,7 +3434,6 @@
         // ==================== INIT ====================
         document.addEventListener('DOMContentLoaded', function() {
             setTheme(currentTheme, true);
-            applyLanguage(currentLang, true);
             initCryptoCopyHandlers();
 
             // Initial URL Hash & Query Route Jump (e.g. zeroiq.site/#donate or /?donate)
