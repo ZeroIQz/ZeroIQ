@@ -2968,7 +2968,7 @@
             renderer.setSize(width, height);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-            var PARTICLE_COUNT = 50000;
+            var PARTICLE_COUNT = 30000;
             var geometry = new THREE.BufferGeometry();
             var githubHomePos    = sampleIconBitmapParticles('github', PARTICLE_COUNT);
             var shieldHomePos    = sampleIconBitmapParticles('shield', PARTICLE_COUNT);
@@ -2999,7 +2999,7 @@
             geometry.setAttribute('color', new THREE.BufferAttribute(currentColors, 3));
 
             var material = new THREE.PointsMaterial({
-                size: 0.038,
+                size: 0.040,
                 sizeAttenuation: true,
                 map: createParticleTexture(),
                 transparent: true,
