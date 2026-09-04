@@ -723,7 +723,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 950px !important;
+            width: 980px !important;
             height: 720px !important;
             display: block;
             background: transparent !important;
@@ -2879,12 +2879,13 @@
         }
 
         // 256x256 High-DPI Pure White Specular Sphere Texture
+        var cachedParticleTexture = null;
         function createParticleTexture() {
+            if (cachedParticleTexture) return cachedParticleTexture;
             var pCanvas = document.createElement('canvas');
             pCanvas.width = 256;
             pCanvas.height = 256;
             var pCtx = pCanvas.getContext('2d');
-
             pCtx.clearRect(0, 0, 256, 256);
 
             // 100% Pure White Radial Alpha Gradient
@@ -2899,9 +2900,8 @@
             pCtx.arc(128, 128, 120, 0, Math.PI * 2);
             pCtx.fill();
 
-            var tex = new THREE.CanvasTexture(pCanvas);
-            tex.needsUpdate = true;
-            return tex;
+            cachedParticleTexture = new THREE.CanvasTexture(pCanvas);
+            return cachedParticleTexture;
         }
 
         function getCanvasDims(container) {
@@ -2970,9 +2970,9 @@
             camera.position.set(0, 0, window.innerWidth <= 768 ? 4.0 : 7.2);
             camera.lookAt(0, 0, 0);
 
-            var renderer = new THREE.WebGLRenderer({ canvas: canvas3d, alpha: true, antialias: true });
+            var renderer = new THREE.WebGLRenderer({ canvas: canvas3d, alpha: true, antialias: true, powerPreference: 'high-performance' });
             renderer.setSize(width, height);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
             var PARTICLE_COUNT = 50000;
             var geometry = new THREE.BufferGeometry();
@@ -2996,7 +2996,6 @@
 
             var targetHomePos  = new Float32Array(githubHomePos);
             var desiredHomePos = new Float32Array(githubHomePos);
-            var currentHomePos = new Float32Array(githubHomePos);
             var currentPos     = new Float32Array(githubHomePos);
             var currentColors  = new Float32Array(githubColors);
             var desiredColors  = new Float32Array(githubColors);
@@ -3020,26 +3019,28 @@
             var particleMesh = new THREE.Points(geometry, material);
             scene.add(particleMesh);
 
-            var targetColor = new THREE.Color('#ffffff');
-
-            // Interactive mouse raycast & local mesh space tracking
+            // Reusable vectors/objects to eliminate garbage collection pauses
             var mouse3D = new THREE.Vector3(-999, -999, 0);
             var localMouse3D = new THREE.Vector3(-999, -999, 0);
             var prevMouse3D = new THREE.Vector3(-999, -999, 0);
             var mouseVelocity = new THREE.Vector3(0, 0, 0);
             var raycaster = new THREE.Raycaster();
             var mouse2D = new THREE.Vector2(-999, -999);
+            var planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+            var planeLocal = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+            var targetIntersection = new THREE.Vector3();
+            var invMatrix = new THREE.Matrix4();
+            var rayLocal = new THREE.Ray();
+            var localHit = new THREE.Vector3();
 
             function updateMouse3D(e) {
-                var rect = container.getBoundingClientRect();
+                var rect = canvas3d.getBoundingClientRect();
+                if (!rect || rect.width === 0 || rect.height === 0) return;
                 mouse2D.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
                 mouse2D.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
                 raycaster.setFromCamera(mouse2D, camera);
-                var planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-                var targetIntersection = new THREE.Vector3();
-                raycaster.ray.intersectPlane(planeZ, targetIntersection);
-                if (targetIntersection) {
+                if (raycaster.ray.intersectPlane(planeZ, targetIntersection)) {
                     if (prevMouse3D.x !== -999) {
                         mouseVelocity.x = (targetIntersection.x - prevMouse3D.x) * 0.4;
                         mouseVelocity.y = (targetIntersection.y - prevMouse3D.y) * 0.4;
@@ -3049,8 +3050,21 @@
                 }
             }
 
-            container.addEventListener('mousemove', updateMouse3D);
-            container.addEventListener('mouseleave', function() {
+            window.addEventListener('mousemove', function(e) {
+                var rect = canvas3d.getBoundingClientRect();
+                if (e.clientX >= rect.left - 40 && e.clientX <= rect.right + 40 &&
+                    e.clientY >= rect.top - 40 && e.clientY <= rect.bottom + 40) {
+                    updateMouse3D(e);
+                } else {
+                    mouse3D.set(-999, -999, 0);
+                    localMouse3D.set(-999, -999, 0);
+                    prevMouse3D.set(-999, -999, 0);
+                    mouseVelocity.set(0, 0, 0);
+                    mouse2D.set(-999, -999);
+                }
+            });
+
+            document.addEventListener('mouseleave', function() {
                 mouse3D.set(-999, -999, 0);
                 localMouse3D.set(-999, -999, 0);
                 prevMouse3D.set(-999, -999, 0);
@@ -3059,21 +3073,26 @@
             });
 
             // Click Ultra Slow-Motion Ripple & Reshaping
-            container.addEventListener('click', function(e) {
-                updateMouse3D(e);
-                var positions = geometry.attributes.position.array;
-                for (var i = 0; i < PARTICLE_COUNT; i++) {
-                    var ix = i * 3;
-                    var dx = positions[ix] - localMouse3D.x;
-                    var dy = positions[ix + 1] - localMouse3D.y;
-                    var dz = positions[ix + 2] - localMouse3D.z;
-                    var dist = Math.sqrt(dx*dx + dy*dy + dz*dz) + 0.01;
+            window.addEventListener('click', function(e) {
+                var rect = canvas3d.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    updateMouse3D(e);
+                    var positions = geometry.attributes.position.array;
+                    var mx = localMouse3D.x, my = localMouse3D.y, mz = localMouse3D.z;
+                    for (var i = 0; i < PARTICLE_COUNT; i++) {
+                        var ix = i * 3;
+                        var dx = positions[ix] - mx;
+                        var dy = positions[ix + 1] - my;
+                        var dz = positions[ix + 2] - mz;
+                        var dist = Math.sqrt(dx*dx + dy*dy + dz*dz) + 0.01;
 
-                    if (dist < 1.6) {
-                        var force = (1.6 - dist) * 0.02;
-                        velocities[ix]     += (dx / dist) * force + (Math.random() - 0.5) * 0.01;
-                        velocities[ix + 1] += (dy / dist) * force + (Math.random() - 0.5) * 0.01;
-                        velocities[ix + 2] += (dz / dist) * force + (Math.random() - 0.5) * 0.01;
+                        if (dist < 1.6) {
+                            var force = (1.6 - dist) * 0.02;
+                            velocities[ix]     += (dx / dist) * force + (Math.random() - 0.5) * 0.01;
+                            velocities[ix + 1] += (dy / dist) * force + (Math.random() - 0.5) * 0.01;
+                            velocities[ix + 2] += (dz / dist) * force + (Math.random() - 0.5) * 0.01;
+                        }
                     }
                 }
             });
@@ -3086,18 +3105,17 @@
                 renderer.setSize(d.w, d.h);
             });
 
-            // --- ULTRA CINEMATIC SLOW-MOTION FLUID SIMULATION LOOP ---
+            var isMorphingPos = false;
+            var isMorphingColors = false;
+
+            // --- ULTRA-FAST 60-144 FPS HARDWARE-ACCELERATED SNAPPY FLUID SIMULATION LOOP ---
             function animate3d() {
                 requestAnimationFrame(animate3d);
 
-                particleMesh.updateMatrixWorld();
-                var invMatrix = particleMesh.matrixWorld.clone().invert();
-
                 // Compute local mouse position inside rotating mesh local coordinate space
                 if (mouse2D.x !== -999) {
-                    var rayLocal = raycaster.ray.clone().applyMatrix4(invMatrix);
-                    var planeLocal = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-                    var localHit = new THREE.Vector3();
+                    invMatrix.copy(particleMesh.matrixWorld).invert();
+                    rayLocal.copy(raycaster.ray).applyMatrix4(invMatrix);
                     if (rayLocal.intersectPlane(planeLocal, localHit)) {
                         localMouse3D.copy(localHit);
                     } else {
@@ -3108,60 +3126,83 @@
                 }
 
                 var positions = geometry.attributes.position.array;
-                // Slowed simulation time clock (4x slower cinematic time!)
-                var time = Date.now() * 0.0004;
-
-                // Smooth, elegant 60FPS fluid morph lerp (positions & colors)
                 var colArr = geometry.attributes.color.array;
-                for (var p = 0; p < PARTICLE_COUNT * 3; p++) {
-                    targetHomePos[p] += (desiredHomePos[p] - targetHomePos[p]) * 0.06;
-                    colArr[p] += (desiredColors[p] - colArr[p]) * 0.06;
-                }
-                geometry.attributes.color.needsUpdate = true;
 
-                // 60 FPS Ultra-Smooth Fluid Physics & Mouse Reaction Loop
+                // Fast conditional morph lerp for positions & colors (only runs during morph transitions!)
+                if (isMorphingPos || isMorphingColors) {
+                    var maxPosDiff = 0;
+                    var maxColorDiff = 0;
+                    for (var p = 0; p < PARTICLE_COUNT * 3; p++) {
+                        if (isMorphingPos) {
+                            var pDiff = Math.abs(desiredHomePos[p] - targetHomePos[p]);
+                            targetHomePos[p] += (desiredHomePos[p] - targetHomePos[p]) * 0.08;
+                            if (pDiff > maxPosDiff) maxPosDiff = pDiff;
+                        }
+                        if (isMorphingColors) {
+                            var cDiff = Math.abs(desiredColors[p] - colArr[p]);
+                            colArr[p] += (desiredColors[p] - colArr[p]) * 0.08;
+                            if (cDiff > maxColorDiff) maxColorDiff = cDiff;
+                        }
+                    }
+
+                    if (isMorphingPos && maxPosDiff < 0.002) isMorphingPos = false;
+                    if (isMorphingColors) {
+                        geometry.attributes.color.needsUpdate = true;
+                        if (maxColorDiff < 0.002) isMorphingColors = false;
+                    }
+                }
+
+                var hasMouse = (mouse2D.x !== -999);
+                var mx = localMouse3D.x, my = localMouse3D.y;
+                var mvx = mouseVelocity.x * 0.02, mvy = mouseVelocity.y * 0.02;
+
+                // Ultra-Fast Snappy Fluid Physics & Mouse Reaction Loop
                 for (var i = 0; i < PARTICLE_COUNT; i++) {
                     var ix = i * 3;
                     var iy = ix + 1;
                     var iz = ix + 2;
 
-                    var hx = targetHomePos[ix];
-                    var hy = targetHomePos[iy];
-                    var hz = targetHomePos[iz];
+                    var px = positions[ix];
+                    var py = positions[iy];
+                    var pz = positions[iz];
 
-                    var targetX = hx;
-                    var targetY = hy;
-                    var targetZ = hz;
+                    var vx = velocities[ix];
+                    var vy = velocities[iy];
+                    var vz = velocities[iz];
 
-                    // Responsive, ultra-smooth mouse hover repelling interaction
-                    if (mouse2D.x !== -999) {
-                        var gdx = positions[ix] - localMouse3D.x;
-                        var gdy = positions[iy] - localMouse3D.y;
+                    // Responsive mouse hover repelling interaction
+                    if (hasMouse) {
+                        var gdx = px - mx;
+                        var gdy = py - my;
                         var gdistSq = gdx * gdx + gdy * gdy;
                         if (gdistSq < 0.45) {
                             var gdist = Math.sqrt(gdistSq) + 0.001;
                             var influence = (0.67 - gdist) / 0.67;
                             if (influence > 0) {
-                                var pushForce = influence * 0.012;
-                                velocities[ix] += (gdx / gdist) * pushForce + mouseVelocity.x * 0.02;
-                                velocities[iy] += (gdy / gdist) * pushForce + mouseVelocity.y * 0.02;
+                                var pushForce = influence * 0.015;
+                                vx += (gdx / gdist) * pushForce + mvx;
+                                vy += (gdy / gdist) * pushForce + mvy;
                             }
                         }
                     }
 
                     // Viscous liquid spring attractor to target shape
-                    velocities[ix] += (targetX - positions[ix]) * 0.015;
-                    velocities[iy] += (targetY - positions[iy]) * 0.015;
-                    velocities[iz] += (targetZ - positions[iz]) * 0.015;
+                    vx += (targetHomePos[ix] - px) * 0.018;
+                    vy += (targetHomePos[iy] - py) * 0.018;
+                    vz += (targetHomePos[iz] - pz) * 0.018;
 
                     // Smooth viscous damping (0.94)
-                    velocities[ix] *= 0.94;
-                    velocities[iy] *= 0.94;
-                    velocities[iz] *= 0.94;
+                    vx *= 0.94;
+                    vy *= 0.94;
+                    vz *= 0.94;
 
-                    positions[ix] += velocities[ix];
-                    positions[iy] += velocities[iy];
-                    positions[iz] += velocities[iz];
+                    velocities[ix] = vx;
+                    velocities[iy] = vy;
+                    velocities[iz] = vz;
+
+                    positions[ix] = px + vx;
+                    positions[iy] = py + vy;
+                    positions[iz] = pz + vz;
                 }
 
                 // Decay mouse velocity
@@ -3169,10 +3210,6 @@
                 mouseVelocity.y *= 0.85;
 
                 geometry.attributes.position.needsUpdate = true;
-
-                // Mesh rotation completely disabled - stays fixed facing front
-                particleMesh.rotation.set(0, 0, 0);
-
                 renderer.render(scene, camera);
             }
             animate3d();
@@ -3185,7 +3222,11 @@
 
             function morphToShape(newHomeArray, newColorsArray, labelText) {
                 desiredHomePos.set(newHomeArray);
-                if (newColorsArray) desiredColors.set(newColorsArray);
+                isMorphingPos = true;
+                if (newColorsArray) {
+                    desiredColors.set(newColorsArray);
+                    isMorphingColors = true;
+                }
                 if (statusLabel) statusLabel.textContent = labelText;
             }
 
