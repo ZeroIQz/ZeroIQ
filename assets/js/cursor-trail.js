@@ -1,15 +1,15 @@
 /**
- * GitHub Universe Mouse Cursor Trail Animation
- * Replicated from https://reg.githubuniverse.com/flow/github/universe26/attendee-registration/login
+ * ZeroIQ Mouse Cursor Trail Animation
+ * Based on GitHub Universe grid-snapped cursor trail, tailored to ZeroIQ's Visual Identity.
  * 
- * Features:
- * - 20px grid-snapped colorful square tiles tracking mouse position
- * - GitHub Universe brand color palette (#ae85ff, #f73678, #c05200, #583af7, #5fed83, #bba00a)
- * - Dynamic ASCII/code characters ("-", "/", ")", ".", "+", "=", ">", "<", "*", "&", "(")
- * - Snappy cubic-bezier spring scale animation (scale(0) -> scale(1) -> scale(0))
- * - High-performance pooled recycling ring buffer with zero per-frame DOM allocations
- * - Fully non-blocking (pointer-events: none, high z-index)
- * - Automatically respects prefers-reduced-motion and touch-only devices
+ * Visual ID Palette:
+ * - Signature Accent (Terracotta / Coral): #da7756 / #c2410c
+ * - Cyan: #38bdf8 / #0284c7
+ * - Indigo: #6366f1 / #4f46e5
+ * - Cyber Green: #22c55e / #16a34a
+ * - Cyber Rose / Glitch Pink: #f472b6 / #db2777
+ * - Warm Peach Highlight: #f0a882 / #ea580c
+ * - Particle Violet: #a855f7 / #7c3aed
  */
 
 (() => {
@@ -17,17 +17,30 @@
     if (window.cursorTrailAnimationInitialized) return;
     window.cursorTrailAnimationInitialized = true;
 
-    // GitHub Universe authentic color palette
-    const colors = [
-        "#ae85ff", // Purple / Lavender
-        "#f73678", // Hot Pink / Magenta
-        "#c05200", // Warm Terracotta / Orange
-        "#583af7", // Electric Indigo / Royal Blue
-        "#5fed83", // Neon Bright Green
-        "#bba00a", // Golden Amber / Olive
+    // ZeroIQ brand visual identity palettes
+    const darkPalette = [
+        "#da7756", // --accent (signature terracotta coral)
+        "#38bdf8", // --cyan (electric sky cyan)
+        "#6366f1", // --indigo (neon indigo)
+        "#22c55e", // --green (cyber emerald)
+        "#f472b6", // cyber rose glitch accent
+        "#f0a882", // warm peach loader glow
+        "#c2410c", // --accent-dark (deep burnt orange)
+        "#a855f7", // 3D particle violet
     ];
 
-    // GitHub Universe code & syntax characters
+    const lightPalette = [
+        "#c2410c", // light mode --accent (rich burnt terracotta)
+        "#0284c7", // light mode deep cyan
+        "#4f46e5", // light mode deep indigo
+        "#16a34a", // light mode rich green
+        "#db2777", // light mode deep rose
+        "#ea580c", // light mode warm amber
+        "#7c3aed", // light mode deep violet
+        "#9a3412", // light mode --accent-dark
+    ];
+
+    // ZeroIQ code, cyber & math glyphs
     const texts = ["-", "/", ")", ".", "+", "=", ">", "<", "*", "&", "("];
 
     class CursorTrailAnimation {
@@ -48,7 +61,20 @@
             document.addEventListener("mouseleave", this.boundHandleMouseLeave, { passive: true });
         }
 
+        getColors() {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            return isLight ? lightPalette : darkPalette;
+        }
+
+        getTextColor() {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            return isLight ? "#0f172a" : "#050a18";
+        }
+
         createBlocks() {
+            const currentColors = this.getColors();
+            const textColor = this.getTextColor();
+
             for (let i = 0; i < this.blockNum; i++) {
                 const block = document.createElement("div");
                 block.className = "universe-trail-block block";
@@ -70,12 +96,12 @@
                 color.style.alignItems = "center";
                 color.style.justifyContent = "center";
                 color.style.lineHeight = this.blockSize + "px";
-                color.style.fontFamily = "'JetBrains Mono', 'Space Grotesk', monospace, sans-serif";
+                color.style.fontFamily = "'JetBrains Mono', monospace";
                 color.style.fontSize = "12px";
-                color.style.fontWeight = "700";
-                color.style.color = "rgba(24, 24, 27, 0.88)";
+                color.style.fontWeight = "800";
+                color.style.color = textColor;
                 color.style.userSelect = "none";
-                color.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                color.style.backgroundColor = currentColors[Math.floor(Math.random() * currentColors.length)];
                 color.style.transition = "transform 0.1s cubic-bezier(0.3, 0.41, 0.04, 1.01)";
                 color.style.transform = "scale(0)";
 
@@ -103,9 +129,13 @@
                 this.mousePosX = x;
                 this.mousePosY = y;
 
+                const colors = this.getColors();
+                const textColor = this.getTextColor();
                 const nextBlock = this.elements[this.lastActiveBlockIndex];
+
                 nextBlock.block.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";
                 nextBlock.color.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                nextBlock.color.style.color = textColor;
                 nextBlock.color.style.transform = "scale(1)";
                 nextBlock.color.textContent = Math.random() < 0.28
                     ? " "

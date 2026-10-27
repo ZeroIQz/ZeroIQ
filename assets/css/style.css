@@ -3391,13 +3391,18 @@ body {
     align-items: center;
     justify-content: center;
     line-height: 20px;
-    font-family: 'JetBrains Mono', monospace, sans-serif;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 12px;
-    font-weight: 700;
-    color: rgba(24, 24, 27, 0.88);
+    font-weight: 800;
+    color: #050a18;
     user-select: none;
     border-radius: 0;
     transition: transform 0.1s cubic-bezier(0.3, 0.41, 0.04, 1.01);
     transform: scale(0);
 }
+
+[data-theme="light"] .universe-trail-color {
+    color: #0f172a;
+}
+
 
