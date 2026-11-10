@@ -647,7 +647,9 @@
         }
       }
       const box = conv(r, ctx.layer);
-      const tb = tr.width > 0 && tr.height > 0 ? conv(tr, ctx.layer) : { ...box };
+      const isBadgeOrBtn = el.localName === "button" || el.localName === "a" ||
+        (el.classList && (el.classList.contains("bullet-chip") || el.classList.contains("tab-btn") || el.classList.contains("content-badge") || el.classList.contains("btn-primary") || el.classList.contains("btn-ghost")));
+      const tb = (!isBadgeOrBtn && tr.width > 0 && tr.height > 0) ? conv(tr, ctx.layer) : { ...box };
       tb.x = clamp(tb.x, box.x - 4, box.x + box.w);
       tb.y = clamp(tb.y, box.y - 4, box.y + box.h);
       textItem(
@@ -1321,15 +1323,17 @@
           let s = c.data;
           const ws = wsOf(n, live);
           if (!/^pre|break-spaces/.test(ws)) s = s.replace(/[\t\n\r ]+/g, " ");
-          if (!s.length) {
+          const isFlex = (n.style && /flex|grid/.test(n.style.display)) || (n === live && it.full.style && /flex|grid/.test(it.full.style.display));
+          if (!s.length || (isFlex && !/\S/.test(s)) || (!/\S/.test(s) && (c === n.firstChild || c === n.lastChild))) {
             c.remove();
             continue;
           }
           units.push({ t: c, s, len: s.length, box });
           seq += s;
         } else if (c.nodeType === 1) {
-          // media, and empty styled boxes (mask icons, dots, swatches) appear in one keystroke
-          if (ATOMIC.has(c.localName) || c instanceof SVGElement || (!/\S/.test(c.textContent) && c.style && boxyStyle(c.style))) {
+          const isIcon = c.localName === "i" || c.localName === "svg" || (c.className && typeof c.className === "string" && c.className.includes("fa-"));
+          // media, icons, and empty styled boxes appear in one keystroke
+          if (isIcon || ATOMIC.has(c.localName) || c instanceof SVGElement || (!/\S/.test(c.textContent) && c.style && boxyStyle(c.style))) {
             units.push({ e: c, len: 1, box, on: true });
             seq += "□";
           } else {
@@ -1801,9 +1805,25 @@ i[class*="fa-"],.fa-solid,.fa-brands,.fa-regular{display:inline-block;font-style
             it._caret = document.createElement("span");
             it._caret.className = "caret";
           }
+          const isFlexBox = (el) => {
+            if (!el || !el.style) return false;
+            return /flex|grid/.test(el.style.display || (typeof getComputedStyle === "function" && getComputedStyle(el).display) || "");
+          };
           const last = it._last;
-          if (last && last.parentNode) last.parentNode.insertBefore(it._caret, last.nextSibling);
-          else content.insertBefore(it._caret, content.firstChild);
+          if (last && last.nodeType === 3 && last.parentNode) {
+            last.parentNode.insertBefore(it._caret, last.nextSibling);
+          } else {
+            const firstText = it.units.find((u) => u.t && u.t.parentNode);
+            if (firstText && firstText.t.parentNode) {
+              firstText.t.parentNode.insertBefore(it._caret, firstText.t);
+            } else if (last && last.parentNode && !isFlexBox(last.parentNode)) {
+              last.parentNode.insertBefore(it._caret, last.nextSibling);
+            } else if (!isFlexBox(content)) {
+              content.insertBefore(it._caret, content.firstChild);
+            } else if (it._caret.parentNode) {
+              it._caret.remove();
+            }
+          }
         } else if (it._caret && it._caret.parentNode) it._caret.remove();
         if (it.scale !== 1) {
           const ox = it.tb.x - it.x + (it.align === "center" ? it.tb.w / 2 : it.align === "right" || it.align === "end" ? it.tb.w : 0);
