@@ -2324,7 +2324,6 @@ i[class*="fa-"],.fa-solid,.fa-brands,.fa-regular{display:inline-block;font-style
     }
 
     flockTarget() {
-      if (this.mouse) return this.fromViewport(this.mouse.x, this.mouse.y);
       const t = this.time;
       const vp = this.vp;
       return this.fromViewport(vp.ox + vp.vw * (0.5 + 0.28 * Math.sin(t * 0.37)), vp.oy + vp.vh * (0.5 + 0.25 * Math.sin(t * 0.53 + 1)));
@@ -2353,15 +2352,8 @@ i[class*="fa-"],.fa-solid,.fa-brands,.fa-regular{display:inline-block;font-style
 
     // Boids-ish orbit around a target, ported from the original.
     follow(dt, list, target, scale = 1) {
-      const m = this.mouse ? this.fromViewport(this.mouse.x, this.mouse.y) : null;
       const o = target || this.flockTarget();
       const time = this.time;
-      if (m && this.lastT && dt > 0) {
-        const k = Math.min(1, dt * 18);
-        this.tv.x += ((m.x - this.lastT.x) / dt - this.tv.x) * k;
-        this.tv.y += ((m.y - this.lastT.y) / dt - this.tv.y) * k;
-      }
-      this.lastT = m;
       const R = 135 * scale * (1 + 0.18 * Math.sin(time * 0.55));
       const swirl = Math.tanh(Math.cos(time * 0.11) * 3);
       const want = [];
@@ -3392,12 +3384,6 @@ i[class*="fa-"],.fa-solid,.fa-brands,.fa-regular{display:inline-block;font-style
       on(window, "wheel", () => {
         if (this.engine.ready) this.engine.start();
       }, { passive: true });
-      on(window, "pointermove", (e) => {
-        this.engine.mouse = { x: e.clientX, y: e.clientY };
-      }, { passive: true });
-      on(document.documentElement, "pointerleave", () => {
-        this.engine.mouse = null;
-      });
       on(window, "keydown", (e) => {
         if (e.key === "Escape") {
           e.stopPropagation();
