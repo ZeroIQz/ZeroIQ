@@ -415,38 +415,6 @@
             letter-spacing: 1px;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90vw;
-            height: 70vh;
-            background: radial-gradient(circle, rgba(218, 119, 86, 0.14) 0%, rgba(56, 189, 248, 0.06) 45%, transparent 75%);
-            filter: blur(90px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -15%;
-            left: 15%;
-            width: 60vw;
-            height: 60vh;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(218, 119, 86, 0.05) 50%, transparent 75%);
-            filter: blur(100px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        [data-theme="dark"] body::before,
-        [data-theme="dark"] body::after {
-            display: none;
-        }
-
 
 
         /* ===== FLOATING HEADER (BUTTONS ONLY - NO CONTAINER BOX) ===== */
@@ -1282,8 +1250,15 @@
         }
 
         /* ===== LIGHT THEME ===== */
-        [data-theme="light"] body {
-            background: var(--bg-deep);
+        [data-theme="light"] body,
+        [data-theme="light"] html {
+            background: #e8ecef !important;
+            background-color: #e8ecef !important;
+            background-image: none !important;
+        }
+
+        [data-theme="light"] .futuristic-grid-bg {
+            display: none !important;
         }
 
         [data-theme="light"] .loader-monogram {
