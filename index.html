@@ -349,26 +349,6 @@
         .hud-bl { bottom: 1.5rem; left: 1.5rem; }
         .hud-br { bottom: 1.5rem; right: 1.5rem; }
 
-        /* ===== INTERACTIVE CLICK RIPPLE ===== */
-        .click-hud-ripple {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            margin-left: -10px;
-            margin-top: -10px;
-            border-radius: 50%;
-            border: 1.5px solid var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
-            pointer-events: none;
-            z-index: 99999;
-            animation: clickRippleAnim 0.45s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-        }
-
-        @keyframes clickRippleAnim {
-            0% { transform: scale(0.4); opacity: 1; }
-            100% { transform: scale(3.5); opacity: 0; }
-        }
-
         /* HUD Glass Callout Annotations */
         .glass-callout-container {
             position: fixed;
@@ -2045,19 +2025,9 @@
 
 
 
-        // ==================== INTERACTIVE CLICK SHOCKWAVE ====================
+        // ==================== INTERACTIVE CLICK SOUND ====================
         window.addEventListener('click', function(e) {
             playClickSound();
-
-            var ripple = document.createElement('div');
-            ripple.className = 'click-hud-ripple';
-            ripple.style.left = e.clientX + 'px';
-            ripple.style.top = e.clientY + 'px';
-            document.body.appendChild(ripple);
-
-            setTimeout(function() {
-                if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
-            }, 500);
         });
 
         // ==================== HOVER MATRIX GLITCH DECRYPT ENGINE ====================
