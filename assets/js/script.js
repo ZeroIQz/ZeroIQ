@@ -17,4 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
         tg.ready();
         tg.expand();
     }
+
+    // Optional keyboard shortcut to replay Swarm Rebuild (Alt + Shift + S)
+    window.addEventListener('keydown', (e) => {
+        if (e.altKey && e.shiftKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            if (window.__swarmRebuild) {
+                window.__swarmRebuild.toggle();
+            }
+        }
+    });
 });

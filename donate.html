@@ -79,6 +79,12 @@
             color: #c2410c;
         }
 
+        [data-theme="light"] .action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
 
         /* ===== RESET & BASE ===== */
         *, *::before, *::after {
@@ -1331,6 +1337,12 @@
             color: #c2410c;
         }
 
+        [data-theme="light"] .action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
 
 
         [data-theme="light"] .content-title {
@@ -2032,6 +2044,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
     <script src="assets/js/script.js"></script>
+    <!-- Swarm Rebuild Engine -->
+    <script defer src="assets/js/swarm.js"></script>
     <!-- GitHub Universe Mouse Cursor Trail Animation -->
     <script src="assets/js/cursor-trail.js"></script>
 
@@ -3306,13 +3320,31 @@
 
 
 
-            // Dismiss loading screen
+            // User activation listeners to unlock Web Audio for Swarm Rebuild
+            function unlockSwarmAudio() {
+                if (window.__swarmRebuild && window.__swarmRebuild.app && window.__swarmRebuild.app.sfx) {
+                    window.__swarmRebuild.app.sfx.resume();
+                }
+            }
+            ['pointerdown', 'mousedown', 'touchstart', 'keydown', 'click', 'pointermove', 'mousemove'].forEach(function(ev) {
+                window.addEventListener(ev, unlockSwarmAudio, { passive: true, capture: true });
+                document.addEventListener(ev, unlockSwarmAudio, { passive: true, capture: true });
+            });
+
+            // Dismiss loading screen and start Swarm Rebuild
             var ls = document.getElementById('loading-screen');
             if (ls) {
                 setTimeout(function() {
+                    if (window.__swarmRebuild) {
+                        window.__swarmRebuild.start();
+                    }
                     ls.style.opacity = '0';
-                    setTimeout(function() { ls.remove(); }, 900);
+                    setTimeout(function() { ls.remove(); }, 600);
                 }, 3200);
+            } else {
+                if (window.__swarmRebuild) {
+                    window.__swarmRebuild.start();
+                }
             }
         });
 
